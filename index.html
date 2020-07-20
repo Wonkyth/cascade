@@ -25,14 +25,31 @@
           <ul class="list-group">
             <li class="list-group-item">
               <div class="row">
-                <div
-                  class="col bg-warning"
-                  data-toggle="collapse"
-                  data-target="#sample1"
-                >
-                  <p>Sample Task 1</p>
-                  <p>DD/MM/YY</p>
-                  <div class="collapse bg-danger" id="sample1">
+                <div class="col bg-warning d-flex flex-column">
+                  <div class="row d-flex">
+                    <div
+                      class="taskHeader d-flex flex-grow-1"
+                      data-toggle="collapse"
+                      data-target="#sample1"
+                    >
+                      <p class="p-2">Sample Task 1</p>
+                      <p class="p-2">DD/MM/YY</p>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        Task Status
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">In Progress</a>
+                        <a class="dropdown-item" href="#">Complete</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse bg-white" id="sample1">
                     <p>
                       Assigned to: John Doe
                     </p>
