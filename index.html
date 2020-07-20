@@ -32,17 +32,18 @@
         <div class="col-8 bg-white" id="main">
           <!-- This is the main tab where the tasks will be listed -->
           <ul class="list-group">
+           <!-- Sample Task 1 -->
             <li class="list-group-item">
               <div class="row">
-                <div class="col bg-warning d-flex flex-column">
-                  <div class="row d-flex">
+                <div class="col d-flex flex-column taskHeader">
+                  <div class="row d-flex p-2">
                     <div
-                      class="taskHeader d-flex flex-grow-1"
+                      class="d-flex flex-grow-1 align-items-center"
                       data-toggle="collapse"
                       data-target="#sample1"
                     >
-                      <p class="p-2">Sample Task 1</p>
-                      <p class="p-2">DD/MM/YY</p>
+                      <p class="px-2">Go Shopping</p>
+                      <p class="px-2">08/06/20</p>
                     </div>
                     <div class="dropdown">
                       <button
@@ -53,7 +54,9 @@
                         Task Status
                       </button>
                       <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">To Do</a>
                         <a class="dropdown-item" href="#">In Progress</a>
+                        <a class="dropdown-item" href="#">Review</a>
                         <a class="dropdown-item" href="#">Complete</a>
                       </div>
                     </div>
@@ -63,11 +66,188 @@
                       Assigned to: John Doe
                     </p>
                     <p>
-                      Task Description: Lorem ipsum dolor sit amet consectetur
-                      adipisicing elit. Iusto perspiciatis harum quae, esse
-                      veniam assumenda ex maxime fugit reprehenderit vitae sed
-                      dignissimos doloribus explicabo ipsum obcaecati, possimus
-                      eum, molestias praesentium.
+                      Task Description: Shopping List:
+                      <ul>
+                        <li>Eggs</li>
+                        <li>Milk</li>
+                        <li>Bread</li>
+                        <li>Steaks</li>
+                        <li>TP</li>
+                        <li>Pasta</li>
+                        <li>Chicken</li>
+                        <li>Mixed Veg</li>
+                        <li>Fruit</li>
+
+                      </ul>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- Sample Task 2 -->
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col d-flex flex-column taskHeader">
+                  <div class="row d-flex p-2">
+                    <div
+                      class="d-flex flex-grow-1 align-items-center "
+                      data-toggle="collapse"
+                      data-target="#sample2"
+                    >
+                      <p class="px-2">Pick the Kids up from School</p>
+                      <p class="px-2">08/06/20</p>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        Task Status
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">To Do</a>
+                        <a class="dropdown-item" href="#">In Progress</a>
+                        <a class="dropdown-item" href="#">Review</a>
+                        <a class="dropdown-item" href="#">Complete</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse bg-white" id="sample2">
+                    <p>
+                      Assigned to: Jane Doe
+                    </p>
+                    <p>
+                      Task Description: The Kids need to be picked up from school at 3:15pm.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- Sample Task 3 -->
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col d-flex flex-column taskHeader">
+                  <div class="row d-flex p-2">
+                    <div
+                      class="d-flex flex-grow-1 align-items-center"
+                      data-toggle="collapse"
+                      data-target="#sample3"
+                    >
+                      <p class="px-2">Book Dentist Appointment</p>
+                      <p class="px-2">12/06/20</p>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        Task Status
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">To Do</a>
+                        <a class="dropdown-item" href="#">In Progress</a>
+                        <a class="dropdown-item" href="#">Review</a>
+                        <a class="dropdown-item" href="#">Complete</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse bg-white" id="sample3">
+                    <p>
+                      Assigned to: John Doe
+                    </p>
+                    <p>
+                      Task Description: Need to get cavities filled and wisdom teeth removed.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- Sample Task 4 -->
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col d-flex flex-column taskHeader">
+                  <div class="row d-flex p-2">
+                    <div
+                      class="d-flex flex-grow-1 align-items-center "
+                      data-toggle="collapse"
+                      data-target="#sample4"
+                    >
+                      <p class="px-2">Fix leaky faucet</p>
+                      <p class="px-2">08/06/20</p>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        Task Status
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">To Do</a>
+                        <a class="dropdown-item" href="#">In Progress</a>
+                        <a class="dropdown-item" href="#">Review</a>
+                        <a class="dropdown-item" href="#">Complete</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse bg-white" id="sample4">
+                    <p>
+                      Assigned to: John Doe
+                    </p>
+                    <p>
+                      Task Description: <ul>
+                        <li>Pick up new washers from Hardware Store</li>
+                        <li>Install them</li>
+                      </ul>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- Sample Task 5 -->
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col d-flex flex-column taskHeader">
+                  <div class="row d-flex p-2">
+                    <div
+                      class="d-flex flex-grow-1 align-items-center"
+                      data-toggle="collapse"
+                      data-target="#sample5"
+                    >
+                      <p class="px-2">Do a workout</p>
+                      <p class="px-2">08/06/20</p>
+                    </div>
+                    <div class="dropdown">
+                      <button
+                        type="button"
+                        class="btn btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                      >
+                        Task Status
+                      </button>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">To Do</a>
+                        <a class="dropdown-item" href="#">In Progress</a>
+                        <a class="dropdown-item" href="#">Review</a>
+                        <a class="dropdown-item" href="#">Complete</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse bg-white" id="sample5">
+                    <p>
+                      Assigned to: John Doe
+                    </p>
+                    <p>
+                      Task Description: Stretch first <ul>
+                        <li>2 Sets of Squats</li>
+                        <li>2 Sets of Bicep Curls</li>
+                        <li>2 Sets of Pushups</li>
+                        <li>5 Minutes Rest</li>
+                        <li>Repeat 3x</li>
+                      </ul>
                     </p>
                   </div>
                 </div>
@@ -95,7 +275,7 @@
               <select class="custom-select" id="inputGroupSelect01">
                 <option selected>Select status</option>
                 <option value="1" class="bg-primary">To Do</option>
-                <option value="2" class="bg-warning">In Progress</option>
+                <option value="2" class=">In Progress</option>
                 <option value="3" class="bg-danger">Review</option>
                 <option value="4" class="bg-success">Done!</option>
               </select>
