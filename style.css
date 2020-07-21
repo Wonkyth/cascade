@@ -46,3 +46,8 @@ body {
   background-color: var(--cardDark);
   border-radius: 15px;
 }
+
+.sideBar {
+  min-height: 100vh;
+  background-color: var(--darkAccent);
+}
