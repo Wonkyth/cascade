@@ -1,4 +1,5 @@
 :root {
+  /* Colour Palette */
   --darkAccent: #483c86;
   --backgroundColor: #282842;
   --cardLight: #ae6fe2;
@@ -7,13 +8,20 @@
   --buttonDark: #4fffc1;
   --offWhite: #faf5ff;
   --mintyWhite: #c2feda;
+
+  /* Scaleable Font Sizes */
+  --desktopHeader: 20px;
+  --desktopBody: 18px;
+  --mobileHeader: 18px;
+  --mobileBody: 16px;
 }
 
 body {
-  background-color: var(--backgroundColor);
+  background: linear-gradient(var(--backgroundColor), #2b1626);
   margin: 0;
   padding: 0;
 }
+
 @media (max-width: 576px) {
   .modal-dialog.modal-dialog-slideout {
     width: 80%;
@@ -37,7 +45,7 @@ body {
   border: 0;
 }
 .mainList {
-  background-color: var(--backgroundColor);
+  background-color: #00000000;
 }
 .taskDescBG {
   background-color: var(--cardLight);
@@ -49,6 +57,7 @@ body {
 .taskHeader {
   background-color: var(--cardDark);
   border-radius: 15px;
+  box-shadow: 0px 8px #00000050;
 }
 
 .sideBar {
@@ -60,4 +69,13 @@ body {
 .hero {
   margin: 0;
   padding: 0;
+}
+
+.taskHeader p {
+  font-size: var(--desktopHeader);
+}
+@media (max-width: 800px) {
+  .taskHeader p {
+    font-size: var(--mobileHeader);
+  }
 }
