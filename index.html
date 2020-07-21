@@ -19,22 +19,24 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-4 bg-primary" id="side-menu">
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#taskEditModal"
-          >
-            New task
-          </button>
+        <div class="col-3 sideBar" id="side-menu"> <!-- This is the sidebar -->
+          <div class="col position-fixed">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#taskEditModal"
+            >
+              New task
+            </button>
+          </div>
         </div>
-        <div class="col-8 bg-white" id="main">
-          <!-- This is the main tab where the tasks will be listed -->
+        <div class="col-9" id="main"> <!-- This is the main tab where the tasks will be listed -->
+          
           <ul class="list-group">
            <!-- Sample Task 1 -->
-            <li class="list-group-item">
-              <div class="row">
+            <li class="list-group-item mainList">
+              <div class="row ">
                 <div class="col d-flex flex-column taskHeader">
                   <div class="row d-flex p-2">
                     <div
@@ -61,7 +63,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse bg-white" id="sample1">
+                  <div class="collapse taskDescBG" id="sample1">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -85,7 +87,7 @@
               </div>
             </li>
             <!-- Sample Task 2 -->
-            <li class="list-group-item">
+            <li class="list-group-item mainList">
               <div class="row">
                 <div class="col d-flex flex-column taskHeader">
                   <div class="row d-flex p-2">
@@ -113,7 +115,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse bg-white" id="sample2">
+                  <div class="collapse taskDescBG" id="sample2">
                     <p>
                       Assigned to: Jane Doe
                     </p>
@@ -125,7 +127,7 @@
               </div>
             </li>
             <!-- Sample Task 3 -->
-            <li class="list-group-item">
+            <li class="list-group-item mainList">
               <div class="row">
                 <div class="col d-flex flex-column taskHeader">
                   <div class="row d-flex p-2">
@@ -153,7 +155,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse bg-white" id="sample3">
+                  <div class="collapse taskDescBG" id="sample3">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -165,7 +167,7 @@
               </div>
             </li>
             <!-- Sample Task 4 -->
-            <li class="list-group-item">
+            <li class="list-group-item mainList">
               <div class="row">
                 <div class="col d-flex flex-column taskHeader">
                   <div class="row d-flex p-2">
@@ -193,7 +195,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse bg-white" id="sample4">
+                  <div class="collapse taskDescBG" id="sample4">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -208,7 +210,7 @@
               </div>
             </li>
             <!-- Sample Task 5 -->
-            <li class="list-group-item">
+            <li class="list-group-item mainList">
               <div class="row">
                 <div class="col d-flex flex-column taskHeader">
                   <div class="row d-flex p-2">
@@ -236,7 +238,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="collapse bg-white" id="sample5">
+                  <div class="collapse taskDescBG" id="sample5">
                     <p>
                       Assigned to: John Doe
                     </p>
