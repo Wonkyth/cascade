@@ -73,9 +73,23 @@ body {
 
 .taskHeader p {
   font-size: var(--desktopHeader);
+  padding-top: 5px;
+  color: var(--mintyWhite);
 }
+.taskDescBG p,
+.taskDescBG li {
+  font-size: var(--desktopBody);
+  color: var(--mintyWhite);
+}
+
+.btn-card:hover,
+.btn-card:
 @media (max-width: 800px) {
   .taskHeader p {
     font-size: var(--mobileHeader);
+  }
+  .taskDescBG p,
+  .taskDescBG li {
+    font-size: var(--mobileBody);
   }
 }
