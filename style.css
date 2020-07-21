@@ -1,22 +1,48 @@
+:root {
+  --darkAccent: #483c86;
+  --backgroundColor: #282842;
+  --cardLight: #ae6fe2;
+  --cardDark: #9565c8;
+  --buttonLight: #61fae8;
+  --buttonDark: #4fffc1;
+  --offWhite: #faf5ff;
+  --mintyWhite: #c2feda;
+}
+
+body {
+  background-color: var(--backgroundColor);
+}
 @media (max-width: 576px) {
-	.modal-dialog.modal-dialog-slideout {
-		width: 80%;
-	}
+  .modal-dialog.modal-dialog-slideout {
+    width: 80%;
+  }
 }
 .modal-dialog-slideout {
-	min-height: 100%;
-	margin: 0 auto 0 0;
-	background: #fff;
+  min-height: 100%;
+  margin: 0 auto 0 0;
+  background: #fff;
 }
 .modal.fade .modal-dialog.modal-dialog-slideout {
-	-webkit-transform: translate(-100%, 0);
-	transform: translate(-100%, 0);
+  -webkit-transform: translate(-100%, 0);
+  transform: translate(-100%, 0);
 }
 .modal.fade.show .modal-dialog.modal-dialog-slideout {
-	-webkit-transform: translate(0, 0);
-	transform: translate(0, 0);
-	flex-flow: column;
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+  flex-flow: column;
 }
 .modal-dialog-slideout .modal-content {
-	border: 0;
+  border: 0;
+}
+.mainList {
+  background-color: var(--backgroundColor);
+}
+.taskDescBG {
+  background-color: var(--cardLight);
+  border-radius: 15px;
+}
+
+.taskHeader {
+  background-color: var(--cardDark);
+  border-radius: 15px;
 }
