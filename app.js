@@ -32,7 +32,7 @@ function saveButtonClicked() {
   );
 }
 
-function setStatus(task, status) {
+function setTaskStatus(task, status) {
   //todo: do all this
   console.error("this ain't implemented yet, ya dingus!");
 }
@@ -54,7 +54,7 @@ function addTask(name, description, date, time, assignee, status) {
   //todo: set time (possibly same info as date?)
   //todo: set assignee
 
-  setStatus(newTask, status);
+  setTaskStatus(newTask, status);
 
   const taskListParent = document.querySelector("#taskParent");
   taskListParent.appendChild(newTask);
