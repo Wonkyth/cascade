@@ -19,7 +19,7 @@
     <title>Cascade</title>
   </head>
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid"> <!--This is the container-->
       <div class="row">
         <div class="col-3 sideBar no-gutters" id="side-menu"> <!-- This is the sidebar -->
           <div class="col position-fixed">
@@ -55,16 +55,16 @@
         </div>
         <div class="col-9" id="main"> <!-- This is the main tab where the tasks will be listed -->
           
-          <ul class="list-group">
+          <ul class="list-group" id="taskParent"> <!--This is the parent of all the task list-group-items-->
            <!-- Sample Task 1 -->
             <li class="list-group-item mainList border-0">
-              <div class="row ">
+              <div class="row">
                 <div class="col d-flex flex-column taskHeader">
-                  <div class="row d-flex p-2">
+                  <div class="row d-flex p-2">                    
                     <div
                       class="d-flex flex-grow-1 align-items-center"
                       data-toggle="collapse"
-                      data-target="#sample1"
+                      data-target="#taskCollapsable1"
                     >
                       <p class="px-2">Go Shopping</p>
                       <p class="px-2">08/06/20</p>
@@ -88,7 +88,7 @@
                   <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
                   </div>
-                  <div class="collapse taskDescBG" id="sample1">
+                  <div class="collapse taskDescBG" id="taskCollapsable1">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -118,7 +118,7 @@
                     <div
                       class="d-flex flex-grow-1 align-items-center "
                       data-toggle="collapse"
-                      data-target="#sample2"
+                      data-target="#taskCollapsable2"
                     >
                       <p class="px-2">Pick the Kids up from School</p>
                       <p class="px-2">08/06/20</p>
@@ -142,7 +142,7 @@
                   <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
                   </div>
-                  <div class="collapse taskDescBG" id="sample2">
+                  <div class="collapse taskDescBG" id="taskCollapsable2">
                     <p>
                       Assigned to: Jane Doe
                     </p>
@@ -161,7 +161,7 @@
                     <div
                       class="d-flex flex-grow-1 align-items-center"
                       data-toggle="collapse"
-                      data-target="#sample3"
+                      data-target="#taskCollapsable3"
                     >
                       <p class="px-2">Book Dentist Appointment</p>
                       <p class="px-2">12/06/20</p>
@@ -185,7 +185,7 @@
                   <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
                   </div>
-                  <div class="collapse taskDescBG" id="sample3">
+                  <div class="collapse taskDescBG" id="taskCollapsable3">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -204,7 +204,7 @@
                     <div
                       class="d-flex flex-grow-1 align-items-center "
                       data-toggle="collapse"
-                      data-target="#sample4"
+                      data-target="#taskCollapsable4"
                     >
                       <p class="px-2">Fix leaky faucet</p>
                       <p class="px-2">08/06/20</p>
@@ -228,7 +228,7 @@
                   <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
                   </div>
-                  <div class="collapse taskDescBG" id="sample4">
+                  <div class="collapse taskDescBG" id="taskCollapsable4">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -250,7 +250,7 @@
                     <div
                       class="d-flex flex-grow-1 align-items-center"
                       data-toggle="collapse"
-                      data-target="#sample5"
+                      data-target="#taskCollapsable5"
                     >
                       <p class="px-2">Do a workout</p>
                       <p class="px-2">08/06/20</p>
@@ -274,7 +274,7 @@
                   <div class="progress">
                     <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
                   </div>
-                  <div class="collapse taskDescBG" id="sample5">
+                  <div class="collapse taskDescBG" id="taskCollapsable5">
                     <p>
                       Assigned to: John Doe
                     </p>
@@ -291,10 +291,55 @@
                 </div>
               </div>
             </li>
+            <template id="taskTemplate">
+            <li class="list-group-item mainList border-0"> <!--Task Template-->
+                <div class="row">
+                  <div class="col d-flex flex-column taskHeader">
+                    <div class="row d-flex p-2">                    
+                      <div
+                        class="d-flex flex-grow-1 align-items-center collapser"
+                        data-toggle="collapse"
+                        data-target="#templateCollapsable"
+                      >
+                        <p class="px-2">TemplateTask</p>
+                        <p class="px-2">04/20/69</p>
+                      </div>
+                      <div class="dropdown">
+                        <button
+                          type="button"
+                          class="btn btn-primary dropdown-toggle mr-3"
+                          data-toggle="dropdown"
+                        >
+                          Task Status
+                        </button>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
+                          <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
+                          <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
+                          <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
+                    </div>
+                    <div class="collapse taskDescBG" id="templateCollapsable">
+                      <p>
+                        Assignee
+                      </p>
+                      <p>
+                        Task Description
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              </template>
           </ul>
         </div>
       </div>
     </div>
+   
 
     <!--New Task Modal-->
     <div class="modal fade" id="taskEditModal" role="dialog">
@@ -303,15 +348,15 @@
           <div class="modal-header">Create New Task</div>
           <div class="modal-body">
             <div class="input-group my-3">
-              <input type="text" class="form-control" placeholder="Task name" />
+              <input type="text" id="newTaskName" class="form-control" placeholder="Task name" />
             </div>
             <div class="input-group my-3">
-              <input type="text" class="form-control" placeholder="Date due" />
-              <input type="text" name="" id="" class="form-control" placeholder="Time">
+              <input type="text" id="newTaskDate" class="form-control" placeholder="Date due" />
+              <input type="text" name="" id="newTaskTime" class="form-control" placeholder="Time">
             </div>
 
             <div class="input-group my-3">
-              <select class="custom-select" id="inputGroupSelect01">
+              <select class="custom-select" id="newTaskStatus">
                 <option selected>Select status</option>
                 <option value="1">To Do</option>
                 <option value="2">In Progress</option>
@@ -319,7 +364,7 @@
                 <option value="4">Done!</option>
               </select>
               
-              <select class="custom-select" id="new-task-assign-custom-select">
+              <select class="custom-select" id="newTaskAssignee">
                 <option selected>Assigned to...</option>
                 <option value="1">Ted</option>
                 <option value="2">Bill</option>
@@ -329,7 +374,7 @@
               <textarea
                 class="form-control"
                 name=""
-                id="new-task-description"
+                id="newTaskDescription"
                 cols="30"
                 rows="10"
                 placeholder="Description"
@@ -339,7 +384,7 @@
           <div class="modal-footer">
             <div class="btn-group" role="group">
               <button class="btn btn-secondary">Cancel</button>
-              <button class="btn btn-primary">Confirm</button>
+              <button class="btn btn-primary" id="newTaskSave">Confirm</button>
             </div>
           </div>
         </div>
