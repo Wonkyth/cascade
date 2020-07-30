@@ -8,10 +8,10 @@ function saveButtonClicked() {
   const newTaskName = document.querySelector("#newTaskName").value;
   const newTaskDescription = document.querySelector("#newTaskDescription")
     .value; //Ok prettier
-  const newTaskAssignee = document.querySelector("#newTaskAssignee");
-  const newTaskDate = document.querySelector("#newTaskDate");
-  const newTaskTime = document.querySelector("#newTaskTime");
-  const newTaskStatus = document.querySelector("#newTaskStatus").value; //todo: how to get the value from option tag
+  const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
+  const newTaskDate = document.querySelector("#newTaskDate").value;
+  const newTaskTime = document.querySelector("#newTaskTime").value;
+  const newTaskStatus = document.querySelector("#newTaskStatus").value;
 
   console.log({
     newTaskName,
@@ -80,23 +80,31 @@ function addTask(name, description, date, time, assignee, status) {
   const newTask = template.content.firstElementChild.cloneNode(true);
   taskCount++;
 
-  //set id of task
+  //set task id
   newTask.id = `taskID${taskCount}`;
 
+  //set target of collapser
   const collapser = newTask.querySelector(".collapser");
   collapser.setAttribute("data-target", `#taskCollapsable${taskCount}`);
 
+  //set id for collapsable
   const collapsable = newTask.querySelector("#templateCollapsable");
   collapsable.id = `taskCollapsable${taskCount}`;
 
-  const taskName = newTask.querySelector(".templateName");
-  taskName.innerText = name;
-  //todo: set desc
-  const taskDescription = newTask.querySelector(".templateDescription");
-  taskDescription.innerText = description;
-  //todo: set date
-  //todo: set time (possibly same info as date?)
-  //todo: set assignee
+  //set task name
+  const taskName = newTask.querySelector(".taskName");
+  taskName.innerHTML = name;
+
+  //set task description
+  const taskDescription = newTask.querySelector(".taskDescription");
+  taskDescription.innerHTML = description;
+
+  const taskDate = newTask.querySelector(".taskDate");
+  taskDate.innerHTML = date;
+  //TODO: set time (possibly same info as date?)
+  //TODO: set assignee to use actual data from list of collaborators
+  const taskAssignee = newTask.querySelector(".taskAssignee");
+  taskAssignee.innerHTML = "Assignee " + assignee;
 
   setTaskStatus(newTask, status);
 
