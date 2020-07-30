@@ -34,6 +34,7 @@ function saveButtonClicked() {
 // task: element
 // status: string
 function setTaskStatus(task, status) {
+  //TODO: //REFACTOR
   const taskProgress = task.querySelector(".progress-bar");
   switch (parseInt(status, 10)) {
     case 1:
@@ -112,6 +113,40 @@ function addTask(name, description, date, time, assignee, status) {
   taskListParent.appendChild(newTask);
 }
 
-//in what way?
-//Oh true, yeah i forgot about that feature
-// oh yeah. It's just that we need to set the progress bar, colours, etc etc. We might as well do that with one method
+const newTaskName = document.querySelector("#newTaskName");
+newTaskName.addEventListener("change", validateName);
+
+function validateName(event) {
+  if (event.target.value.length <= 8) {
+    //REFACTOR: make this use bootstrap-style attributes to store required values
+    setIsInvalid(event.target);
+    return false;
+  } else {
+    setIsValid(event.target);
+    return true;
+  }
+}
+
+const newTaskStatus = document.querySelector("#newTaskStatus");
+newTaskStatus.addEventListener("change", validateStatus);
+
+function validateStatus(event) {
+  //REFACTOR: merge validators into one?
+  if (event.target.value === "0") {
+    setIsInvalid(event.target);
+    return false;
+  } else {
+    setIsValid(event.target);
+    return true;
+  }
+}
+
+function setIsValid(element) {
+  element.classList.add("is-valid");
+  element.classList.remove("is-invalid");
+}
+
+function setIsInvalid(element) {
+  element.classList.add("is-invalid");
+  element.classList.remove("is-valid");
+}

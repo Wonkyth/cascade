@@ -350,6 +350,7 @@
           <div class="modal-body">
             <div class="input-group my-3">
               <input type="text" id="newTaskName" class="form-control" placeholder="Task name" />
+              <div class="invalid-tooltip">Task name must be longer than 8 characters.</div>
             </div>
             <div class="input-group my-3">
               <input type="text" id="newTaskDate" class="form-control" placeholder="Date due" />
@@ -358,15 +359,16 @@
 
             <div class="input-group my-3">
               <select class="custom-select" id="newTaskStatus">
-                <option value="0" selected>Select status</option>
-                <option value="1">To Do</option>
+                <option>Select status</option>
+                <option value="1" selected>To Do</option>
                 <option value="2">In Progress</option>
                 <option value="3">Review</option>
                 <option value="4">Done!</option>
               </select>
+              <div class="invalid-tooltip">Oh noes!</div>
               
               <select class="custom-select" id="newTaskAssignee">
-                <option selected>Assigned to...</option>
+                <option value="0" selected>Assigned to...</option>
                 <option value="1">Ted</option>
                 <option value="2">Bill</option>
               </select>
