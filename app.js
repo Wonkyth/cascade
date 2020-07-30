@@ -34,6 +34,7 @@ function saveButtonClicked() {
 // task: element
 // status: string
 function setTaskStatus(task, status) {
+  //TODO: //REFACTOR
   const taskProgress = task.querySelector(".progress-bar");
   switch (parseInt(status, 10)) {
     case 1:
@@ -112,6 +113,30 @@ function addTask(name, description, date, time, assignee, status) {
   taskListParent.appendChild(newTask);
 }
 
-//in what way?
-//Oh true, yeah i forgot about that feature
-// oh yeah. It's just that we need to set the progress bar, colours, etc etc. We might as well do that with one method
+document.querySelectorAll(".validated").forEach((element) => {
+  element.addEventListener("change", (event) => {
+    validateElement(event.target);
+  });
+});
+
+function validateElement(element) {
+  let value = element.value;
+  let validator = element.getAttribute("validator");
+  if (eval(validator)) {
+    setIsValid(element);
+    return true;
+  } else {
+    setIsInvalid(element);
+    return false;
+  }
+}
+
+function setIsValid(element) {
+  element.classList.add("is-valid");
+  element.classList.remove("is-invalid");
+}
+
+function setIsInvalid(element) {
+  element.classList.add("is-invalid");
+  element.classList.remove("is-valid");
+}
