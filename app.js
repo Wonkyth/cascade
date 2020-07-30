@@ -113,51 +113,20 @@ function addTask(name, description, date, time, assignee, status) {
   taskListParent.appendChild(newTask);
 }
 
-const newTaskName = document.querySelector("#newTaskName");
-newTaskName.addEventListener("change", validateName);
-
-function validateName(event) {
-  if (event.target.value.length <= 8) {
-    //REFACTOR: make this use bootstrap-style attributes to store required values
-    setIsInvalid(event.target);
-    return false;
-  } else {
-    setIsValid(event.target);
-    return true;
-  }
-}
-
-const newTaskDate = document.querySelector("#newTaskDate");
-newTaskDate.addEventListener("change", (event) => {
-  validateDate(event.target);
+document.querySelectorAll(".validated").forEach((element) => {
+  element.addEventListener("change", (event) => {
+    validateElement(event.target);
+  });
 });
-
-function validateDate(element) {
-  //TODO: implement validateDate
-  setIsValid(element);
-  return true;
-}
-
-const newTaskStatus = document.querySelector("#newTaskStatus");
-newTaskStatus.addEventListener("change", validateStatus);
-
-function validateStatus(event) {
-  //REFACTOR: merge validators into one?
-  if (event.target.value === "0") {
-    setIsInvalid(event.target);
-    return false;
-  } else {
-    setIsValid(event.target);
-    return true;
-  }
-}
 
 function validateElement(element) {
   let value = element.value;
   let validator = element.getAttribute("validator");
   if (eval(validator)) {
+    setIsValid(element);
     return true;
   } else {
+    setIsInvalid(element);
     return false;
   }
 }

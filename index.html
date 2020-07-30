@@ -349,33 +349,35 @@
           <div class="modal-header">Create New Task</div>
           <div class="modal-body">
             <div class="input-group my-3">
-              <input type="text" id="newTaskName" class="form-control" validator="value.length > 8"placeholder="Task name" />
-              <div class="invalid-tooltip">Task name must be longer than 8 characters.</div>
+              <input type="text" id="newTaskName" class="form-control validated" validator="value.length > 8" placeholder="Task name" />
+              <div class="invalid-tooltip">Task name must be longer than 8 characters</div>
             </div>
             <div class="input-group my-3">
-              <input type="text" id="newTaskDate" class="form-control" placeholder="Date due" />
-              <input type="text" name="" id="newTaskTime" class="form-control" placeholder="Time">
+              <input type="text" id="newTaskDate" class="form-control validated" validator="value == 'potato'" placeholder="Date due" />
+              <input type="text" name="" id="newTaskTime" class="form-control validated" validator="value == 'cheese'" placeholder="Time">
             </div>
 
             <div class="input-group my-3">
-              <select class="custom-select" id="newTaskStatus">
-                <option>Select status</option>
+              <select class="custom-select validated" id="newTaskStatus" validator="value > 0">
+                <option value="0">Select status</option>
                 <option value="1" selected>To Do</option>
                 <option value="2">In Progress</option>
                 <option value="3">Review</option>
                 <option value="4">Done!</option>
               </select>
-              <div class="invalid-tooltip">Oh noes!</div>
+              <div class="invalid-tooltip">Please select an option</div>
               
-              <select class="custom-select" id="newTaskAssignee">
+              <select class="custom-select validated" id="newTaskAssignee" validator="value > 0">
                 <option value="0" selected>Assigned to...</option>
                 <option value="1">Ted</option>
                 <option value="2">Bill</option>
               </select>
+              <div class="invalid-tooltip">Please select an option</div>
             </div>
             <div class="form-group">
               <textarea
-                class="form-control"
+                class="form-control validated"
+                validator="value.length > 15"
                 name=""
                 id="newTaskDescription"
                 cols="30"
