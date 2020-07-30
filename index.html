@@ -291,8 +291,9 @@
                 </div>
               </div>
             </li>
+            <!--Task Template-->
             <template id="taskTemplate">
-            <li class="list-group-item mainList border-0"> <!--Task Template-->
+            <li class="list-group-item mainList border-0" id="templateID"> 
                 <div class="row">
                   <div class="col d-flex flex-column taskHeader">
                     <div class="row d-flex p-2">                    
@@ -301,8 +302,8 @@
                         data-toggle="collapse"
                         data-target="#templateCollapsable"
                       >
-                        <p class="px-2">TemplateTask</p>
-                        <p class="px-2">04/20/69</p>
+                        <p class="px-2 templateName">TemplateTask</p>
+                        <p class="px-2 templateDate">04/20/69</p>
                       </div>
                       <div class="dropdown">
                         <button
@@ -324,10 +325,10 @@
                       <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
                     </div>
                     <div class="collapse taskDescBG" id="templateCollapsable">
-                      <p>
+                      <p class="templateAssignee">
                         Assignee
                       </p>
-                      <p>
+                      <p class="templateDescription">
                         Task Description
                       </p>
                     </div>
@@ -357,7 +358,7 @@
 
             <div class="input-group my-3">
               <select class="custom-select" id="newTaskStatus">
-                <option selected>Select status</option>
+                <option value="0" selected>Select status</option>
                 <option value="1">To Do</option>
                 <option value="2">In Progress</option>
                 <option value="3">Review</option>
