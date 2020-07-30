@@ -34,20 +34,33 @@ function saveButtonClicked() {
 // task: element
 // status: string
 function setTaskStatus(task, status) {
-  //todo: do all this
   const taskProgress = task.querySelector(".progress-bar");
   switch (parseInt(status, 10)) {
     case 1:
       taskProgress.innerHTML = "To Do";
+      taskProgress.setAttribute("aria-valuenow", "25");
+      taskProgress.setAttribute("class", "progress-bar bg-secondary");
+      taskProgress.setAttribute("style", "width: 25%");
       break;
     case 2:
       taskProgress.innerHTML = "In Progress";
+      taskProgress.setAttribute("aria-valuenow", "50");
+      taskProgress.setAttribute("class", "progress-bar bg-primary");
+      taskProgress.setAttribute("style", "width: 50%");
+
       break;
     case 3:
       taskProgress.innerHTML = "Awaiting Review";
+      taskProgress.setAttribute("aria-valuenow", "75");
+      taskProgress.setAttribute("class", "progress-bar bg-info");
+      taskProgress.setAttribute("style", "width: 75%");
+
       break;
     case 4:
       taskProgress.innerHTML = "Done!";
+      taskProgress.setAttribute("aria-valuenow", "100");
+      taskProgress.setAttribute("class", "progress-bar bg-success");
+      taskProgress.setAttribute("style", "width: 100%");
       break;
 
     default:
@@ -55,10 +68,11 @@ function setTaskStatus(task, status) {
         `Status "${status}" does not exist! Setting status text to "ERROR".`
       );
       taskProgress.innerHTML = "ERROR";
+      taskProgress.setAttribute("aria-valuenow", "0");
       taskProgress.setAttribute("class", "progress-bar bg-danger");
+      taskProgress.setAttribute("style", "width: 100%");
       break;
   }
-  console.warn("this ain't fully implemented yet, ya dingus!");
 }
 
 function addTask(name, description, date, time, assignee, status) {
