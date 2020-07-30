@@ -127,6 +127,17 @@ function validateName(event) {
   }
 }
 
+const newTaskDate = document.querySelector("#newTaskDate");
+newTaskDate.addEventListener("change", (event) => {
+  validateDate(event.target);
+});
+
+function validateDate(element) {
+  //TODO: implement validateDate
+  setIsValid(element);
+  return true;
+}
+
 const newTaskStatus = document.querySelector("#newTaskStatus");
 newTaskStatus.addEventListener("change", validateStatus);
 
@@ -138,6 +149,16 @@ function validateStatus(event) {
   } else {
     setIsValid(event.target);
     return true;
+  }
+}
+
+function validateElement(element) {
+  let value = element.value;
+  let validator = element.getAttribute("validator");
+  if (eval(validator)) {
+    return true;
+  } else {
+    return false;
   }
 }
 
