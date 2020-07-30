@@ -5,14 +5,13 @@ let taskCount = 5;
 newSavedTask.addEventListener("click", saveButtonClicked);
 
 function saveButtonClicked() {
-  //   console.log("save button clicked");
-  const newTaskName = document.querySelector("#newTaskName").nodeValue;
+  const newTaskName = document.querySelector("#newTaskName").value;
   const newTaskDescription = document.querySelector("#newTaskDescription")
     .value; //Ok prettier
-  const newTaskAssignee = document.querySelector("#newTaskAssignee");
-  const newTaskDate = document.querySelector("#newTaskDate");
-  const newTaskTime = document.querySelector("#newTaskTime");
-  const newTaskStatus = document.querySelector("#newTaskStatus"); //todo: how to get the value from option tag
+  const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
+  const newTaskDate = document.querySelector("#newTaskDate").value;
+  const newTaskTime = document.querySelector("#newTaskTime").value;
+  const newTaskStatus = document.querySelector("#newTaskStatus").value;
 
   console.log({
     newTaskName,
@@ -32,9 +31,48 @@ function saveButtonClicked() {
   );
 }
 
+// task: element
+// status: string
 function setTaskStatus(task, status) {
-  //todo: do all this
-  console.error("this ain't implemented yet, ya dingus!");
+  const taskProgress = task.querySelector(".progress-bar");
+  switch (parseInt(status, 10)) {
+    case 1:
+      taskProgress.innerHTML = "To Do";
+      taskProgress.setAttribute("aria-valuenow", "25");
+      taskProgress.setAttribute("class", "progress-bar bg-secondary");
+      taskProgress.setAttribute("style", "width: 25%");
+      break;
+    case 2:
+      taskProgress.innerHTML = "In Progress";
+      taskProgress.setAttribute("aria-valuenow", "50");
+      taskProgress.setAttribute("class", "progress-bar bg-primary");
+      taskProgress.setAttribute("style", "width: 50%");
+
+      break;
+    case 3:
+      taskProgress.innerHTML = "Awaiting Review";
+      taskProgress.setAttribute("aria-valuenow", "75");
+      taskProgress.setAttribute("class", "progress-bar bg-info");
+      taskProgress.setAttribute("style", "width: 75%");
+
+      break;
+    case 4:
+      taskProgress.innerHTML = "Done!";
+      taskProgress.setAttribute("aria-valuenow", "100");
+      taskProgress.setAttribute("class", "progress-bar bg-success");
+      taskProgress.setAttribute("style", "width: 100%");
+      break;
+
+    default:
+      console.error(
+        `Status "${status}" does not exist! Setting status text to "ERROR".`
+      );
+      taskProgress.innerHTML = "ERROR";
+      taskProgress.setAttribute("aria-valuenow", "0");
+      taskProgress.setAttribute("class", "progress-bar bg-danger");
+      taskProgress.setAttribute("style", "width: 100%");
+      break;
+  }
 }
 
 function addTask(name, description, date, time, assignee, status) {
@@ -42,17 +80,31 @@ function addTask(name, description, date, time, assignee, status) {
   const newTask = template.content.firstElementChild.cloneNode(true);
   taskCount++;
 
+  //set task id
+  newTask.id = `taskID${taskCount}`;
+
+  //set target of collapser
   const collapser = newTask.querySelector(".collapser");
   collapser.setAttribute("data-target", `#taskCollapsable${taskCount}`);
 
+  //set id for collapsable
   const collapsable = newTask.querySelector("#templateCollapsable");
   collapsable.id = `taskCollapsable${taskCount}`;
 
-  //todo: set name
-  //todo: set desc
-  //todo: set date
-  //todo: set time (possibly same info as date?)
-  //todo: set assignee
+  //set task name
+  const taskName = newTask.querySelector(".taskName");
+  taskName.innerHTML = name;
+
+  //set task description
+  const taskDescription = newTask.querySelector(".taskDescription");
+  taskDescription.innerHTML = description;
+
+  const taskDate = newTask.querySelector(".taskDate");
+  taskDate.innerHTML = date;
+  //TODO: set time (possibly same info as date?)
+  //TODO: set assignee to use actual data from list of collaborators
+  const taskAssignee = newTask.querySelector(".taskAssignee");
+  taskAssignee.innerHTML = "Assignee " + assignee;
 
   setTaskStatus(newTask, status);
 
