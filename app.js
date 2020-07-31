@@ -140,3 +140,5 @@ function setIsInvalid(element) {
   element.classList.add("is-invalid");
   element.classList.remove("is-valid");
 }
+
+function generateExampleTasks() {}
