@@ -12,25 +12,30 @@
       crossorigin="anonymous"
     />
     <!--FontAwesome-->
-    <script src="https://kit.fontawesome.com/321c8d8956.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/321c8d8956.js"
+      crossorigin="anonymous"
+    ></script>
     <!--our css-->
     <link rel="stylesheet" href="style.css" />
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
     <title>Cascade</title>
   </head>
   <body>
-    <div class="container-fluid"> <!--This is the container-->
+    <div class="container-fluid">
+      <!--This is the container-->
       <div class="row">
-        <div class="col-3 sideBar no-gutters" id="side-menu"> <!-- This is the sidebar -->
+        <div class="col-3 sideBar no-gutters" id="side-menu">
+          <!-- This is the sidebar -->
           <div class="col position-fixed">
-            	<div class="hero col-3">
-            	  <img class="img-fluid" src="img/logo.png">
-            	</div>
+            <div class="hero col-3">
+              <img class="img-fluid" src="img/logo.png" />
+            </div>
             <div class="col-3">
               <div class="card">
                 <div class="card-header">Settings</div>
@@ -58,256 +63,23 @@
             </div>
           </div>
         </div>
-        <div class="col-9" id="main"> <!-- This is the main tab where the tasks will be listed -->
-          
-          <ul class="list-group" id="taskParent"> <!--This is the parent of all the task list-group-items-->
-           <!-- Sample Task 1 -->
-            <li class="list-group-item mainList border-0">
-              <div class="row">
-                <div class="col d-flex flex-column taskHeader">
-                  <div class="row d-flex p-2">                    
-                    <div
-                      class="d-flex flex-grow-1 align-items-center"
-                      data-toggle="collapse"
-                      data-target="#taskCollapsable1"
-                    >
-                      <p class="px-2">Go Shopping</p>
-                      <p class="px-2">08/06/20</p>
-                    </div>
-                    <div class="dropdown">
-                      <button
-                        type="button"
-                        class="btn btn-primary dropdown-toggle mr-3"
-                        data-toggle="dropdown"
-                      >
-                        Task Status
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
-                  </div>
-                  <div class="collapse taskDescBG" id="taskCollapsable1">
-                    <p>
-                      Assigned to: John Doe
-                    </p>
-                    <p>
-                      Task Description: Shopping List:
-                      <ul>
-                        <li>Eggs</li>
-                        <li>Milk</li>
-                        <li>Bread</li>
-                        <li>Steaks</li>
-                        <li>TP</li>
-                        <li>Pasta</li>
-                        <li>Chicken</li>
-                        <li>Mixed Veg</li>
-                        <li>Fruit</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <!-- Sample Task 2 -->
-            <li class="list-group-item mainList border-0">
-              <div class="row">
-                <div class="col d-flex flex-column taskHeader">
-                  <div class="row d-flex p-2">
-                    <div
-                      class="d-flex flex-grow-1 align-items-center "
-                      data-toggle="collapse"
-                      data-target="#taskCollapsable2"
-                    >
-                      <p class="px-2">Pick the Kids up from School</p>
-                      <p class="px-2">08/06/20</p>
-                    </div>
-                    <div class="dropdown">
-                      <button
-                        type="button"
-                        class="btn btn-primary dropdown-toggle mr-3"
-                        data-toggle="dropdown"
-                      >
-                        Task Status
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
-                  </div>
-                  <div class="collapse taskDescBG" id="taskCollapsable2">
-                    <p>
-                      Assigned to: Jane Doe
-                    </p>
-                    <p>
-                      Task Description: The Kids need to be picked up from school at 3:15pm.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <!-- Sample Task 3 -->
-            <li class="list-group-item mainList border-0">
-              <div class="row">
-                <div class="col d-flex flex-column taskHeader">
-                  <div class="row d-flex p-2">
-                    <div
-                      class="d-flex flex-grow-1 align-items-center"
-                      data-toggle="collapse"
-                      data-target="#taskCollapsable3"
-                    >
-                      <p class="px-2">Book Dentist Appointment</p>
-                      <p class="px-2">12/06/20</p>
-                    </div>
-                    <div class="dropdown">
-                      <button
-                        type="button"
-                        class="btn btn-primary dropdown-toggle mr-3"
-                        data-toggle="dropdown"
-                      >
-                        Task Status
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
-                  </div>
-                  <div class="collapse taskDescBG" id="taskCollapsable3">
-                    <p>
-                      Assigned to: John Doe
-                    </p>
-                    <p>
-                      Task Description: Need to get cavities filled and wisdom teeth removed.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <!-- Sample Task 4 -->
-            <li class="list-group-item mainList border-0">
-              <div class="row">
-                <div class="col d-flex flex-column taskHeader">
-                  <div class="row d-flex p-2">
-                    <div
-                      class="d-flex flex-grow-1 align-items-center "
-                      data-toggle="collapse"
-                      data-target="#taskCollapsable4"
-                    >
-                      <p class="px-2">Fix leaky faucet</p>
-                      <p class="px-2">08/06/20</p>
-                    </div>
-                    <div class="dropdown">
-                      <button
-                        type="button"
-                        class="btn btn-primary dropdown-toggle mr-3"
-                        data-toggle="dropdown"
-                      >
-                        Task Status
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
-                  </div>
-                  <div class="collapse taskDescBG" id="taskCollapsable4">
-                    <p>
-                      Assigned to: John Doe
-                    </p>
-                    <p>
-                      Task Description: <ul>
-                        <li>Pick up new washers from Hardware Store</li>
-                        <li>Install them</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <!-- Sample Task 5 -->
-            <li class="list-group-item mainList border-0">
-              <div class="row">
-                <div class="col d-flex flex-column taskHeader">
-                  <div class="row d-flex p-2">
-                    <div
-                      class="d-flex flex-grow-1 align-items-center"
-                      data-toggle="collapse"
-                      data-target="#taskCollapsable5"
-                    >
-                      <p class="px-2">Do a workout</p>
-                      <p class="px-2">08/06/20</p>
-                    </div>
-                    <div class="dropdown">
-                      <button
-                        type="button"
-                        class="btn btn-primary dropdown-toggle mr-3"
-                        data-toggle="dropdown"
-                      >
-                        Task Status
-                      </button>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="progress">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
-                  </div>
-                  <div class="collapse taskDescBG" id="taskCollapsable5">
-                    <p>
-                      Assigned to: John Doe
-                    </p>
-                    <p>
-                      Task Description: Stretch first <ul>
-                        <li>2 Sets of Squats</li>
-                        <li>2 Sets of Bicep Curls</li>
-                        <li>2 Sets of Pushups</li>
-                        <li>5 Minutes Rest</li>
-                        <li>Repeat 3x</li>
-                      </ul>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </li>
+        <div class="col-9" id="main">
+          <!-- This is the main tab where the tasks will be listed -->
+
+          <ul class="list-group" id="taskParent">
+            <!--This is the parent of all the task list-group-items-->
             <!--Task Template-->
             <template id="taskTemplate">
-            <li class="list-group-item mainList border-0" id="templateID"> 
+              <li class="list-group-item mainList border-0" id="templateID">
                 <div class="row">
                   <div class="col d-flex flex-column taskHeader">
-                    <div class="row d-flex p-2">                    
+                    <div class="row d-flex p-2">
                       <div
                         class="d-flex flex-grow-1 align-items-center collapser"
                         data-toggle="collapse"
                         data-target="#templateCollapsable"
                       >
-                        <p class="px-2 taskName">TemplateTask</p> 
+                        <p class="px-2 taskName">TemplateTask</p>
                         <p class="px-2 taskDate">04/20/69</p>
                       </div>
                       <div class="dropdown">
@@ -319,15 +91,33 @@
                           Task Status
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#"><i class="fas fa-box"></i> To Do</a>
-                          <a class="dropdown-item" href="#"><i class="fas fa-hourglass-half"></i> In Progress</a>
-                          <a class="dropdown-item" href="#"><i class="far fa-question-circle"></i> Review</a>
-                          <a class="dropdown-item" href="#"><i class="fas fa-check-double"></i> Complete</a>
+                          <a class="dropdown-item" href="#"
+                            ><i class="fas fa-box"></i> To Do</a
+                          >
+                          <a class="dropdown-item" href="#"
+                            ><i class="fas fa-hourglass-half"></i> In
+                            Progress</a
+                          >
+                          <a class="dropdown-item" href="#"
+                            ><i class="far fa-question-circle"></i> Review</a
+                          >
+                          <a class="dropdown-item" href="#"
+                            ><i class="fas fa-check-double"></i> Complete</a
+                          >
                         </div>
                       </div>
                     </div>
                     <div class="progress">
-                      <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">To Do</div>
+                      <div
+                        class="progress-bar bg-primary"
+                        role="progressbar"
+                        style="width: 25%;"
+                        aria-valuenow="25"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      >
+                        To Do
+                      </div>
                     </div>
                     <div class="collapse taskDescBG" id="templateCollapsable">
                       <p class="taskAssignee">
@@ -340,12 +130,11 @@
                   </div>
                 </div>
               </li>
-              </template>
+            </template>
           </ul>
         </div>
       </div>
     </div>
-   
 
     <!--New Task Modal-->
     <div class="modal fade" id="taskEditModal" role="dialog">
@@ -354,16 +143,41 @@
           <div class="modal-header">Create New Task</div>
           <div class="modal-body">
             <div class="input-group my-3">
-              <input type="text" id="newTaskName" class="form-control validated" validator="value.length > 8" placeholder="Task name" />
-              <div class="invalid-tooltip">Task name must be longer than 8 characters</div>
+              <input
+                type="text"
+                id="newTaskName"
+                class="form-control validated"
+                validator="value.length > 8"
+                placeholder="Task name"
+              />
+              <div class="invalid-tooltip">
+                Task name must be longer than 8 characters
+              </div>
             </div>
             <div class="input-group my-3">
-              <input type="text" id="newTaskDate" class="form-control validated" validator="value == 'potato'" placeholder="Date due" />
-              <input type="text" name="" id="newTaskTime" class="form-control validated" validator="value == 'cheese'" placeholder="Time">
+              <input
+                type="text"
+                id="newTaskDate"
+                class="form-control validated"
+                validator="value == 'potato'"
+                placeholder="Date due"
+              />
+              <input
+                type="text"
+                name=""
+                id="newTaskTime"
+                class="form-control validated"
+                validator="value == 'cheese'"
+                placeholder="Time"
+              />
             </div>
 
             <div class="input-group my-3">
-              <select class="custom-select validated" id="newTaskStatus" validator="value > 0">
+              <select
+                class="custom-select validated"
+                id="newTaskStatus"
+                validator="value > 0"
+              >
                 <option value="0">Select status</option>
                 <option value="1" selected>To Do</option>
                 <option value="2">In Progress</option>
@@ -371,8 +185,12 @@
                 <option value="4">Done!</option>
               </select>
               <div class="invalid-tooltip">Please select an option</div>
-              
-              <select class="custom-select validated" id="newTaskAssignee" validator="value > 0">
+
+              <select
+                class="custom-select validated"
+                id="newTaskAssignee"
+                validator="value > 0"
+              >
                 <option value="0" selected>Assigned to...</option>
                 <option value="1">Ted</option>
                 <option value="2">Bill</option>

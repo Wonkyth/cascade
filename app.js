@@ -1,6 +1,6 @@
 const taskContainer = document.querySelector("#taskParent");
 const newSavedTask = document.querySelector("#newTaskSave");
-let taskCount = 5;
+let taskCount = 0;
 
 newSavedTask.addEventListener("click", saveButtonClicked);
 
@@ -105,7 +105,7 @@ function addTask(name, description, date, time, assignee, status) {
   //TODO: set time (possibly same info as date?)
   //TODO: set assignee to use actual data from list of collaborators
   const taskAssignee = newTask.querySelector(".taskAssignee");
-  taskAssignee.innerHTML = "Assignee " + assignee;
+  taskAssignee.innerHTML = "Assignee: " + assignee;
 
   setTaskStatus(newTask, status);
 
@@ -140,3 +140,48 @@ function setIsInvalid(element) {
   element.classList.add("is-invalid");
   element.classList.remove("is-valid");
 }
+
+function generateExampleTasks() {
+  addTask(
+    "Go Shopping",
+    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+    "08/06/20",
+    "10:30",
+    "Ted",
+    "1"
+  );
+  addTask(
+    "Go Shopping",
+    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+    "08/06/20",
+    "10:30",
+    "Ted",
+    "2"
+  );
+  addTask(
+    "Go Shopping",
+    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+    "08/06/20",
+    "10:30",
+    "Ted",
+    "3"
+  );
+  addTask(
+    "Go Shopping",
+    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+    "08/06/20",
+    "10:30",
+    "Ted",
+    "4"
+  );
+  addTask(
+    "Go Shopping",
+    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+    "08/06/20",
+    "10:30",
+    "Ted",
+    "1"
+  );
+}
+
+generateExampleTasks();
