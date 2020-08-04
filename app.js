@@ -8,10 +8,10 @@ class TaskManager {
     this.taskCount = 0;
     this.taskListParent = document.querySelector("#taskParent");
   }
-  addTask(name, desc, date, time, assignee, status, refresh = false) {
+  addTask(name, description, date, time, assignee, status, refresh = false) {
     //todo: make work
     console.warn("not implemented");
-    let task = new Task(name, desc, date, time, assignee, status);
+    let task = new Task(name, description, date, time, assignee, status);
     //todo: add event listener
     this.taskListParent.append(task.toHtmlElement());
     this.tasks.push(task);
@@ -24,6 +24,7 @@ class TaskManager {
     //todo: make work
     console.warn("not implemented");
     //clear
+    taskListParent.innerHTML = "";
     //for each task, add to element
   }
   deleteTask(id_or_whatever) {
@@ -33,85 +34,89 @@ class TaskManager {
 }
 
 class Task {
-  constructor(name, description, date, time, assignee, status) {
+  constructor(name, description, date, time, assignee, status, count) {
     this.name = name;
     this.description = description;
     this.date = date;
     this.time = time;
     this.assignee = assignee;
     this.status = status;
+    this.id = "task" + count;
   }
   toHtmlElement() {
-    const html = `<li class="list-group-item mainList border-0" id="templateID">
-    <div class="row">
-      <div class="col d-flex flex-column taskHeader">
-        <div class="row d-flex p-2">
-          <div
-            class="d-flex flex-grow-1 align-items-center collapser"
-            data-toggle="collapse"
-            data-target="#templateCollapsable"
-          >
-            <p class="px-2 taskName">TemplateTask</p>
-            <p class="px-2 taskDate">04/20/69</p>
-          </div>
+    const html = `
+      <li class="list-group-item mainList border-0" id="${this.id}">
+        <div class="row">
+          <div class="col d-flex flex-column taskHeader">
+            <div class="row d-flex p-2">
+              <div
+                class="d-flex flex-grow-1 align-items-center collapser"
+                data-toggle="collapse"
+                data-target="#${this.id}_collapsable"
+              >
+                <p class="px-2 taskName">${this.name}</p>
+                <p class="px-2 taskDate">${this.date}</p>
+              </div>
 
-          <div class="dropdown">
-            <button
-              type="button"
-              class="btn btn-info mx-1"
-              data-toggle="modal"
-              id="templateEditButtonID"
-              data-target="#taskEditModal"
-            >
-              Edit task
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary dropdown-toggle mr-3"
-              data-toggle="dropdown"
-            >
-              Task Status
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#"
-                ><i class="fas fa-box"></i> To Do</a
+              <div class="dropdown">
+                <button
+                  type="button"
+                  class="btn btn-info mx-1"
+                  data-toggle="modal"
+                  id="${this.id}_edit"
+                  data-target="#taskEditModal"
+                >
+                  Edit task
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary dropdown-toggle mr-3"
+                  data-toggle="dropdown"
+                >
+                  Task Status
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-box"></i> To Do</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-hourglass-half"></i> In
+                    Progress</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="far fa-question-circle"></i> Review</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-check-double"></i> Complete</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="progress">
+              <div
+                class="progress-bar bg-primary"
+                role="progressbar"
+                style="width: 25%;"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
               >
-              <a class="dropdown-item" href="#"
-                ><i class="fas fa-hourglass-half"></i> In
-                Progress</a
-              >
-              <a class="dropdown-item" href="#"
-                ><i class="far fa-question-circle"></i> Review</a
-              >
-              <a class="dropdown-item" href="#"
-                ><i class="fas fa-check-double"></i> Complete</a
-              >
+                To Do
+              </div>
+            </div>
+            <div class="collapse taskDescBG" id="${this.id}_collapsable">
+              <p class="taskAssignee">
+              ${this.assignee}
+              </p>
+              <p class="taskDescription">
+              ${this.description}
+              </p>
             </div>
           </div>
         </div>
-        <div class="progress">
-          <div
-            class="progress-bar bg-primary"
-            role="progressbar"
-            style="width: 25%;"
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            To Do
-          </div>
-        </div>
-        <div class="collapse taskDescBG" id="templateCollapsable">
-          <p class="taskAssignee">
-            Assignee
-          </p>
-          <p class="taskDescription">
-            Task Description
-          </p>
-        </div>
-      </div>
-    </div>
-  </li>`;
+      </li>
+    `;
+    //todo: add event listeners
     return document.createRange().createContextualFragment(html);
   }
 }
@@ -134,8 +139,8 @@ function saveButtonClicked() {
   const newTaskDescription = document.querySelector("#newTaskDescription")
     .value; //Ok prettier
   const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
-  const newTaskDate = document.querySelector("#newTaskDate").value;
-  const newTaskTime = document.querySelector("#newTaskTime").value;
+  const newTaskDate = document.querySelector("#newTaskDate").valueAsNumber;
+  const newTaskTime = document.querySelector("#newTaskTime").valueAsNumber;
   const newTaskStatus = document.querySelector("#newTaskStatus").value;
 
   addTask(
