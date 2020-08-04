@@ -148,6 +148,26 @@ class Assignee {
   }
 }
 
+class Options {
+  constructor(dateFormat, timeFormat, timezone) {
+    this.dateFormat = dateFormat;
+    this.timeFormat = timeFormat;
+    this.timezone = timezone;
+  }
+
+  SetDateFormat() {
+    if ((Radiobox1 = true)) {
+      this.dateFormat = "DD/MM/YY";
+    } else if ((Radiobox2 = true)) {
+      this.dateFormat = "MM/DD/YY";
+    } else if ((Radiobox3 = true)) {
+      this.dateFormat = "YY/MM/DD";
+    }
+  }
+
+  SetTimeFormat() {}
+}
+
 newSavedTask.addEventListener("click", saveButtonClicked);
 
 // class Task {
