@@ -3,29 +3,36 @@ const newSavedTask = document.querySelector("#newTaskSave");
 let taskCount = 0;
 let tasksDb = [];
 class TaskManager {
-  constructor() {
+  constructor(parent) {
     this.tasks = [];
     this.taskCount = 0;
-    this.taskListParent = document.querySelector("#taskParent");
+    this.parent = document.querySelector(parent);
   }
-  addTask(name, description, date, time, assignee, status, refresh = false) {
-    //todo: make work
-    console.warn("not implemented");
-    let task = new Task(name, description, date, time, assignee, status);
+  addTask(name, description, datetime, assignee, status, refresh = false) {
+    let task = new Task(
+      name,
+      description,
+      datetime,
+      assignee,
+      status,
+      taskCount
+    );
     //todo: add event listener
-    this.taskListParent.append(task.toHtmlElement());
+    this.parent.append(task.toHtmlElement());
     this.tasks.push(task);
-    taskCount++;
+    this.taskCount++;
     if (refresh) {
       display();
     }
   }
   display() {
-    //todo: make work
-    console.warn("not implemented");
     //clear
-    taskListParent.innerHTML = "";
+    this.parent.innerHTML = "";
     //for each task, add to element
+    this.tasks.forEach((task) => {
+      this.parent.append(task.toHtmlElement());
+      console.count(task.name);
+    });
   }
   deleteTask(id_or_whatever) {
     //todo: make work
@@ -34,16 +41,16 @@ class TaskManager {
 }
 
 class Task {
-  constructor(name, description, date, time, assignee, status, count) {
+  constructor(name, description, datetime, assignee, status, count) {
     this.name = name;
     this.description = description;
-    this.date = date;
-    this.time = time;
+    this.datetime = datetime;
     this.assignee = assignee;
     this.status = status;
     this.id = "task" + count;
   }
   toHtmlElement() {
+    //TODO: make datetime convert to correct format
     const html = `
       <li class="list-group-item mainList border-0" id="${this.id}">
         <div class="row">
@@ -55,7 +62,7 @@ class Task {
                 data-target="#${this.id}_collapsable"
               >
                 <p class="px-2 taskName">${this.name}</p>
-                <p class="px-2 taskDate">${this.date}</p>
+                <p class="px-2 taskDate">${this.datetime}</p>
               </div>
 
               <div class="dropdown">
@@ -106,7 +113,7 @@ class Task {
             </div>
             <div class="collapse taskDescBG" id="${this.id}_collapsable">
               <p class="taskAssignee">
-              ${this.assignee}
+              Assigned to: ${this.assignee.name}
               </p>
               <p class="taskDescription">
               ${this.description}
@@ -118,6 +125,26 @@ class Task {
     `;
     //todo: add event listeners
     return document.createRange().createContextualFragment(html);
+  }
+}
+
+class AssigneeManager {
+  constructor() {
+    this.assignees = [];
+  }
+  add(name) {
+    //TODO: handle duplicate names
+    const assignee = new Assignee(name);
+    this.assignees.push(assignee);
+  }
+  getFromName(name) {
+    return this.assignees.find((assignee) => (assignee.name = name));
+  }
+}
+
+class Assignee {
+  constructor(name) {
+    this.name = name;
   }
 }
 
@@ -184,6 +211,7 @@ function getDefaultDate() {
 // task: element
 // status: string
 function setTaskStatus(task, status) {
+  //FIXME: depreciated
   //TODO: //REFACTOR
   const taskProgress = task.querySelector(".progress-bar");
   switch (parseInt(status, 10)) {
@@ -227,6 +255,7 @@ function setTaskStatus(task, status) {
 }
 
 function addTask(name, description, date, time, assignee, status) {
+  //FIXME: depreciated
   const template = document.querySelector("#taskTemplate");
   const newTask = template.content.firstElementChild.cloneNode(true);
   taskCount++;
@@ -306,45 +335,54 @@ function setIsInvalid(element) {
 
 //Sample Tasks for Preview
 function generateExampleTasks() {
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "1"
+  //TODO: upgrade to use TaskManager
+  assigneeManager.add("Bill");
+  assigneeManager.add("Ted");
+
+  mainTaskManager.addTask(
+    "test1",
+    "Example task 1",
+    new Date("December 17, 2020 03:24:00"),
+    assigneeManager.getFromName("Bill"),
+    "To Do"
   );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "2"
-  );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "3"
-  );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "4"
-  );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "1"
-  );
+
+  mainTaskManager.display();
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "1"
+  // );
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "2"
+  // );
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "3"
+  // );
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "4"
+  // );
 }
+
+const mainTaskManager = new TaskManager("#taskParent");
+const assigneeManager = new AssigneeManager();
+
 generateExampleTasks();
