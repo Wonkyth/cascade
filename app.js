@@ -2,8 +2,35 @@ const taskContainer = document.querySelector("#taskParent");
 const newSavedTask = document.querySelector("#newTaskSave");
 let taskCount = 0;
 let tasksDb = [];
-
-newSavedTask.addEventListener("click", saveButtonClicked);
+class TaskManager {
+  constructor() {
+    this.tasks = [];
+    this.taskCount = 0;
+    this.taskListParent = document.querySelector("#taskParent");
+  }
+  addTask(name, desc, date, time, assignee, status, refresh = false) {
+    //todo: make work
+    console.warn("not implemented");
+    let task = new Task(name, desc, date, time, assignee, status);
+    //todo: add event listener
+    this.taskListParent.append(task.toHtmlElement());
+    this.tasks.push(task);
+    taskCount++;
+    if (refresh) {
+      display();
+    }
+  }
+  display() {
+    //todo: make work
+    console.warn("not implemented");
+    //clear
+    //for each task, add to element
+  }
+  deleteTask(id_or_whatever) {
+    //todo: make work
+    console.warn("not implemented");
+  }
+}
 
 class Task {
   constructor(name, description, date, time, assignee, status) {
@@ -12,9 +39,95 @@ class Task {
     this.date = date;
     this.time = time;
     this.assignee = assignee;
-    this.status = status; //TODO: allow to include and change all information within Status
+    this.status = status;
+  }
+  toHtmlElement() {
+    const html = `<li class="list-group-item mainList border-0" id="templateID">
+    <div class="row">
+      <div class="col d-flex flex-column taskHeader">
+        <div class="row d-flex p-2">
+          <div
+            class="d-flex flex-grow-1 align-items-center collapser"
+            data-toggle="collapse"
+            data-target="#templateCollapsable"
+          >
+            <p class="px-2 taskName">TemplateTask</p>
+            <p class="px-2 taskDate">04/20/69</p>
+          </div>
+
+          <div class="dropdown">
+            <button
+              type="button"
+              class="btn btn-info mx-1"
+              data-toggle="modal"
+              id="templateEditButtonID"
+              data-target="#taskEditModal"
+            >
+              Edit task
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary dropdown-toggle mr-3"
+              data-toggle="dropdown"
+            >
+              Task Status
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#"
+                ><i class="fas fa-box"></i> To Do</a
+              >
+              <a class="dropdown-item" href="#"
+                ><i class="fas fa-hourglass-half"></i> In
+                Progress</a
+              >
+              <a class="dropdown-item" href="#"
+                ><i class="far fa-question-circle"></i> Review</a
+              >
+              <a class="dropdown-item" href="#"
+                ><i class="fas fa-check-double"></i> Complete</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="progress">
+          <div
+            class="progress-bar bg-primary"
+            role="progressbar"
+            style="width: 25%;"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            To Do
+          </div>
+        </div>
+        <div class="collapse taskDescBG" id="templateCollapsable">
+          <p class="taskAssignee">
+            Assignee
+          </p>
+          <p class="taskDescription">
+            Task Description
+          </p>
+        </div>
+      </div>
+    </div>
+  </li>`;
+    return document.createRange().createContextualFragment(html);
   }
 }
+
+newSavedTask.addEventListener("click", saveButtonClicked);
+
+// class Task {
+//   constructor(name, description, date, time, assignee, status) {
+//     this.name = name;
+//     this.description = description;
+//     this.date = date;
+//     this.time = time;
+//     this.assignee = assignee;
+//     this.status = status; //TODO: allow to include and change all information within Status
+//   }
+// }
 
 function saveButtonClicked() {
   const newTaskName = document.querySelector("#newTaskName").value;
@@ -166,7 +279,7 @@ document.querySelectorAll(".validated").forEach((element) => {
 
 function validateElement(element) {
   let value = element.value;
-  let validator = element.getAttribute("validator");
+  let validator = element.getAttribute("data-validator");
   if (eval(validator)) {
     setIsValid(element);
     return true;

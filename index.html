@@ -158,7 +158,7 @@
                 type="text"
                 id="newTaskName"
                 class="form-control validated clearable"
-                validator="value.length > 8"
+                data-validator="value.length > 8"
                 placeholder="Task name"
               />
               <div class="invalid-tooltip">
@@ -170,14 +170,14 @@
                 type="date"
                 id="newTaskDate"
                 class="form-control validated"
-                validator="value != 'Date due'"
+                data-validator="value != 'Date due'"
               />
               <input
                 type="time"
                 name=""
                 id="newTaskTime"
                 class="form-control validated"
-                validator="value == 'cheese'"
+                data-validator="value == 'cheese'"
                 placeholder="Time"
               />
             </div>
@@ -186,7 +186,7 @@
               <select
                 class="custom-select validated"
                 id="newTaskStatus"
-                validator="value > 0"
+                data-validator="value > 0"
               >
                 <option value="0" selected>Select status</option>
                 <option value="1">To Do</option>
@@ -199,7 +199,7 @@
               <select
                 class="custom-select validated"
                 id="newTaskAssignee"
-                validator="value > 0"
+                data-validator="value > 0"
               >
                 <option value="0" selected>Assigned to...</option>
                 <option value="1">Ted</option>
@@ -210,7 +210,7 @@
             <div class="form-group">
               <textarea
                 class="form-control validated"
-                validator="value.length > 15"
+                data-validator="value.length > 15"
                 name=""
                 id="newTaskDescription"
                 cols="30"
