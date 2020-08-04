@@ -2,27 +2,172 @@ const taskContainer = document.querySelector("#taskParent");
 const newSavedTask = document.querySelector("#newTaskSave");
 let taskCount = 0;
 let tasksDb = [];
+class TaskManager {
+  constructor(parent) {
+    this.tasks = [];
+    this.taskCount = 0;
+    this.parent = document.querySelector(parent);
+  }
+  addTask(name, description, datetime, assignee, status, refresh = false) {
+    let task = new Task(
+      name,
+      description,
+      datetime,
+      assignee,
+      status,
+      taskCount
+    );
+    //todo: add event listener
+    this.parent.append(task.toHtmlElement());
+    this.tasks.push(task);
+    this.taskCount++;
+    if (refresh) {
+      display();
+    }
+  }
+  display() {
+    //clear
+    this.parent.innerHTML = "";
+    //for each task, add to element
+    this.tasks.forEach((task) => {
+      this.parent.append(task.toHtmlElement());
+      console.count(task.name);
+    });
+  }
+  deleteTask(id_or_whatever) {
+    //todo: make work
+    console.warn("not implemented");
+  }
+}
+
+class Task {
+  constructor(name, description, datetime, assignee, status, count) {
+    this.name = name;
+    this.description = description;
+    this.datetime = datetime;
+    this.assignee = assignee;
+    this.status = status;
+    this.id = "task" + count;
+  }
+  toHtmlElement() {
+    //TODO: make datetime convert to correct format
+    const html = `
+      <li class="list-group-item mainList border-0" id="${this.id}">
+        <div class="row">
+          <div class="col d-flex flex-column taskHeader">
+            <div class="row d-flex p-2">
+              <div
+                class="d-flex flex-grow-1 align-items-center collapser"
+                data-toggle="collapse"
+                data-target="#${this.id}_collapsable"
+              >
+                <p class="px-2 taskName">${this.name}</p>
+                <p class="px-2 taskDate">${this.datetime}</p>
+              </div>
+
+              <div class="dropdown">
+                <button
+                  type="button"
+                  class="btn btn-info mx-1"
+                  data-toggle="modal"
+                  id="${this.id}_edit"
+                  data-target="#taskEditModal"
+                >
+                  Edit task
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary dropdown-toggle mr-3"
+                  data-toggle="dropdown"
+                >
+                  Task Status
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-box"></i> To Do</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-hourglass-half"></i> In
+                    Progress</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="far fa-question-circle"></i> Review</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-check-double"></i> Complete</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="progress">
+              <div
+                class="progress-bar bg-primary"
+                role="progressbar"
+                style="width: 25%;"
+                aria-valuenow="25"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                To Do
+              </div>
+            </div>
+            <div class="collapse taskDescBG" id="${this.id}_collapsable">
+              <p class="taskAssignee">
+              Assigned to: ${this.assignee.name}
+              </p>
+              <p class="taskDescription">
+              ${this.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+    `;
+    //todo: add event listeners
+    return document.createRange().createContextualFragment(html);
+  }
+}
+
+class AssigneeManager {
+  constructor() {
+    this.assignees = [];
+  }
+  add(name) {
+    //TODO: handle duplicate names
+    const assignee = new Assignee(name);
+    this.assignees.push(assignee);
+  }
+  getFromName(name) {
+    return this.assignees.find((assignee) => (assignee.name = name));
+  }
+}
+
+class Assignee {
+  constructor(name) {
+    this.name = name;
+  }
+}
 
 newSavedTask.addEventListener("click", saveButtonClicked);
 
-class Task {
-  constructor(name, description, date, time, assignee, status) {
-    this.name = name;
-    this.description = description;
-    this.date = date;
-    this.time = time;
-    this.assignee = assignee;
-    this.status = status; //TODO: allow to include and change all information within Status
-  }
-}
+// class Task {
+//   constructor(name, description, date, time, assignee, status) {
+//     this.name = name;
+//     this.description = description;
+//     this.date = date;
+//     this.time = time;
+//     this.assignee = assignee;
+//     this.status = status; //TODO: allow to include and change all information within Status
+//   }
+// }
 
 function saveButtonClicked() {
   const newTaskName = document.querySelector("#newTaskName").value;
   const newTaskDescription = document.querySelector("#newTaskDescription")
     .value; //Ok prettier
   const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
-  const newTaskDate = document.querySelector("#newTaskDate").value;
-  const newTaskTime = document.querySelector("#newTaskTime").value;
+  const newTaskDate = document.querySelector("#newTaskDate").valueAsNumber;
+  const newTaskTime = document.querySelector("#newTaskTime").valueAsNumber;
   const newTaskStatus = document.querySelector("#newTaskStatus").value;
 
   addTask(
@@ -66,6 +211,7 @@ function getDefaultDate() {
 // task: element
 // status: string
 function setTaskStatus(task, status) {
+  //FIXME: depreciated
   //TODO: //REFACTOR
   const taskProgress = task.querySelector(".progress-bar");
   switch (parseInt(status, 10)) {
@@ -109,6 +255,7 @@ function setTaskStatus(task, status) {
 }
 
 function addTask(name, description, date, time, assignee, status) {
+  //FIXME: depreciated
   const template = document.querySelector("#taskTemplate");
   const newTask = template.content.firstElementChild.cloneNode(true);
   taskCount++;
@@ -166,7 +313,7 @@ document.querySelectorAll(".validated").forEach((element) => {
 
 function validateElement(element) {
   let value = element.value;
-  let validator = element.getAttribute("validator");
+  let validator = element.getAttribute("data-validator");
   if (eval(validator)) {
     setIsValid(element);
     return true;
@@ -188,45 +335,54 @@ function setIsInvalid(element) {
 
 //Sample Tasks for Preview
 function generateExampleTasks() {
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "1"
+  //TODO: upgrade to use TaskManager
+  assigneeManager.add("Bill");
+  assigneeManager.add("Ted");
+
+  mainTaskManager.addTask(
+    "test1",
+    "Example task 1",
+    new Date("December 17, 2020 03:24:00"),
+    assigneeManager.getFromName("Bill"),
+    "To Do"
   );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "2"
-  );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "3"
-  );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "4"
-  );
-  addTask(
-    "Go Shopping",
-    "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-    "08/06/20",
-    "10:30",
-    "Ted",
-    "1"
-  );
+
+  mainTaskManager.display();
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "1"
+  // );
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "2"
+  // );
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "3"
+  // );
+  // addTask(
+  //   "Go Shopping",
+  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
+  //   "08/06/20",
+  //   "10:30",
+  //   "Ted",
+  //   "4"
+  // );
 }
+
+const mainTaskManager = new TaskManager("#taskParent");
+const assigneeManager = new AssigneeManager();
+
 generateExampleTasks();
