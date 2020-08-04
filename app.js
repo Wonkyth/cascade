@@ -1,8 +1,20 @@
 const taskContainer = document.querySelector("#taskParent");
 const newSavedTask = document.querySelector("#newTaskSave");
 let taskCount = 0;
+let tasksDb = [];
 
 newSavedTask.addEventListener("click", saveButtonClicked);
+
+class Task {
+  constructor(name, description, date, time, assignee, status) {
+    this.name = name;
+    this.description = description;
+    this.date = date;
+    this.time = time;
+    this.assignee = assignee;
+    this.status = status; //TODO: allow to include and change all information within Status
+  }
+}
 
 function saveButtonClicked() {
   const newTaskName = document.querySelector("#newTaskName").value;
@@ -13,14 +25,6 @@ function saveButtonClicked() {
   const newTaskTime = document.querySelector("#newTaskTime").value;
   const newTaskStatus = document.querySelector("#newTaskStatus").value;
 
-  console.log({
-    newTaskName,
-    newTaskDescription,
-    newTaskAssignee,
-    newTaskDate,
-    newTaskTime,
-    newTaskStatus,
-  });
   addTask(
     newTaskName,
     newTaskDescription,
@@ -29,6 +33,34 @@ function saveButtonClicked() {
     newTaskAssignee,
     newTaskStatus
   );
+
+  clearTaskEditModal();
+}
+
+function clearTaskEditModal() {
+  //select all input
+  const elements = document.querySelectorAll("#taskEditModal .clearable");
+  //clear
+  elements.forEach((element) => {
+    //if text input
+    if (element.nodeName === "INPUT") {
+      if (element.getAttribute("type") === "text") {
+        element.value = "";
+      } else if (element.getAttribute("type") === "date") {
+        element.value = getDefaultDate();
+      }
+    }
+    //if date input
+    //if time input
+    //if textarea
+  });
+  //select all options
+  //clear
+}
+
+function getDefaultDate() {
+  console.warn("getDefaultDate isn't implemented yet!");
+  return "2011-08-19";
 }
 
 // task: element
@@ -92,6 +124,15 @@ function addTask(name, description, date, time, assignee, status) {
   const collapsable = newTask.querySelector("#templateCollapsable");
   collapsable.id = `taskCollapsable${taskCount}`;
 
+  //set id for edit button
+  const editButton = newTask.querySelector("#templateEditButtonID");
+  editButton.classList.add(`taskEditButtonID${taskCount}`);
+
+  //set event listener for edit button
+  editButton.addEventListener("click", (event) => {
+    console.log(`${newTask.id} was clicked.`);
+  });
+
   //set task name
   const taskName = newTask.querySelector(".taskName");
   taskName.innerHTML = name;
@@ -111,8 +152,12 @@ function addTask(name, description, date, time, assignee, status) {
 
   const taskListParent = document.querySelector("#taskParent");
   taskListParent.appendChild(newTask);
+
+  task = new Task(name, description, date, time, assignee, status);
+  tasksDb.push(task);
 }
 
+//add validator eventListeners
 document.querySelectorAll(".validated").forEach((element) => {
   element.addEventListener("change", (event) => {
     validateElement(event.target);
@@ -141,6 +186,7 @@ function setIsInvalid(element) {
   element.classList.remove("is-valid");
 }
 
+//Sample Tasks for Preview
 function generateExampleTasks() {
   addTask(
     "Go Shopping",
@@ -183,5 +229,4 @@ function generateExampleTasks() {
     "1"
   );
 }
-
 generateExampleTasks();

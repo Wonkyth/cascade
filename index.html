@@ -68,6 +68,7 @@
 
           <ul class="list-group" id="taskParent">
             <!--This is the parent of all the task list-group-items-->
+
             <!--Task Template-->
             <template id="taskTemplate">
               <li class="list-group-item mainList border-0" id="templateID">
@@ -82,7 +83,17 @@
                         <p class="px-2 taskName">TemplateTask</p>
                         <p class="px-2 taskDate">04/20/69</p>
                       </div>
+
                       <div class="dropdown">
+                        <button
+                          type="button"
+                          class="btn btn-info mx-1"
+                          data-toggle="modal"
+                          id="templateEditButtonID"
+                          data-target="#taskEditModal"
+                        >
+                          Edit task
+                        </button>
                         <button
                           type="button"
                           class="btn btn-primary dropdown-toggle mr-3"
@@ -146,7 +157,7 @@
               <input
                 type="text"
                 id="newTaskName"
-                class="form-control validated"
+                class="form-control validated clearable"
                 validator="value.length > 8"
                 placeholder="Task name"
               />
@@ -156,14 +167,13 @@
             </div>
             <div class="input-group my-3">
               <input
-                type="text"
+                type="date"
                 id="newTaskDate"
                 class="form-control validated"
-                validator="value == 'potato'"
-                placeholder="Date due"
+                validator="value != 'Date due'"
               />
               <input
-                type="text"
+                type="time"
                 name=""
                 id="newTaskTime"
                 class="form-control validated"
@@ -178,8 +188,8 @@
                 id="newTaskStatus"
                 validator="value > 0"
               >
-                <option value="0">Select status</option>
-                <option value="1" selected>To Do</option>
+                <option value="0" selected>Select status</option>
+                <option value="1">To Do</option>
                 <option value="2">In Progress</option>
                 <option value="3">Review</option>
                 <option value="4">Done!</option>
