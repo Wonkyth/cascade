@@ -31,10 +31,13 @@
     <title>Cascade</title>
   </head>
   <body>
+    <div class="mobileLogo d-block d-sm-none">
+      <img src="./img/logo.png" class="img-fluid" />
+    </div>
     <div class="container-fluid">
       <!--This is the container-->
       <div class="row">
-        <div class="col-3 sideBar no-gutters" id="side-menu">
+        <div class="col-3 d-none d-sm-block sideBar no-gutters" id="side-menu">
           <!-- This is the sidebar -->
           <div class="col position-fixed">
             <div class="hero col-3">
@@ -42,8 +45,14 @@
             </div>
             <div class="col-3">
               <div class="card">
-                <div class="card-header">Settings</div>
-                <div class="card-body">
+                <div
+                  class="card-header options"
+                  data-toggle="collapse"
+                  data-target="#optionsCollapsable"
+                >
+                  Settings
+                </div>
+                <div class="card-body collapse" id="optionsCollapsable">
                   <div class="input-group my-3">
                     <select class="custom-select" id="time-format-setting">
                       <option selected>12-hour time</option>
@@ -67,90 +76,14 @@
             </div>
           </div>
         </div>
-        <div class="col-9" id="main">
+        <div class="col-9 col-sm- col-" id="main">
           <!-- This is the main tab where the tasks will be listed -->
 
           <ul class="list-group" id="taskParent">
             <!--This is the parent of all the task list-group-items-->
 
-            <!--Task Template-->
-            <template id="taskTemplate">
-              <li class="list-group-item mainList border-0" id="templateID">
-                <div class="row">
-                  <div class="col d-flex flex-column taskHeader">
-                    <div class="row d-flex p-2">
-                      <div
-                        class="d-flex flex-grow-1 align-items-center collapser"
-                        data-toggle="collapse"
-                        data-target="#templateCollapsable"
-                      >
-                        <p class="px-2 taskName">TemplateTask</p>
-                        <p class="px-2 taskDate">04/20/69</p>
-                      </div>
-
-                      <div class="dropdown">
-                        <button
-                          type="button"
-                          class="btn btn-info mx-1"
-                          data-toggle="modal"
-                          id="templateEditButtonID"
-                          data-target="#taskEditModal"
-                        >
-                          Edit task
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-primary dropdown-toggle mr-3"
-                          data-toggle="dropdown"
-                        >
-                          Task Status
-                        </button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#"
-                            ><i class="fas fa-box"></i> To Do</a
-                          >
-                          <a class="dropdown-item" href="#"
-                            ><i class="fas fa-hourglass-half"></i> In
-                            Progress</a
-                          >
-                          <a class="dropdown-item" href="#"
-                            ><i class="far fa-question-circle"></i> Review</a
-                          >
-                          <a class="dropdown-item" href="#"
-                            ><i class="fas fa-check-double"></i> Complete</a
-                          >
-                        </div>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div
-                        class="progress-bar bg-primary"
-                        role="progressbar"
-                        style="width: 25%;"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        To Do
-                      </div>
-                    </div>
-                    <div class="collapse taskDescBG" id="templateCollapsable">
-                      <p class="taskAssignee">
-                        Assignee
-                      </p>
-                      <p class="taskDescription">
-                        Task Description
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </template>
-          </ul>
-        </div>
+        </ul>
       </div>
-    </div>
-
     <!--New Task Modal-->
     <div class="modal fade" id="taskEditModal" role="dialog">
       <div class="modal-dialog modal-dialog-slideout modal-md" role="document">

@@ -65,15 +65,16 @@ class Task {
   }
   toHtmlElement() {
     //TODO: make datetime convert to correct format
+    //TODO: Fix collapser
     const html = `
-      <li class="list-group-item mainList border-0" id="${this.id}">
+      <li class="list-group-item mainList border-0 collapser" data-toggle="collapse"
+      data-target="#${this.id}_collapsable" id="${this.id}">
         <div class="row">
           <div class="col d-flex flex-column taskHeader">
             <div class="row d-flex p-2">
               <div
                 class="d-flex flex-grow-1 align-items-center collapser"
-                data-toggle="collapse"
-                data-target="#${this.id}_collapsable"
+                
               >
                 <p class="px-2 taskName">${this.name}</p>
                 <p class="px-2 taskDate">${this.datetime}</p>
@@ -349,3 +350,13 @@ const assigneeManager = new AssigneeManager();
 const options = new Options();
 
 generateExampleTasks();
+let sideMenu = document.querySelector(".sideBar");
+
+let screenResize = function () {
+  if (window.screenX >= -611) {
+    console.log(window.screenX);
+  }
+};
+
+console.log(sideMenu.outerHTML);
+screenResize();
