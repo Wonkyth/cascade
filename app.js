@@ -34,17 +34,14 @@ class TaskManager {
     this.tasks.forEach((task) => {
       this.parent.append(task.toHtmlElement());
       //wtf
-      const foo = this.parent.querySelector(`#${task.id}_delete`);
-      console.log(foo);
-      foo.addEventListener("click", () => {
-        console.log("deleting " + task.id);
+      const deleteButton = this.parent.querySelector(`#${task.id}_delete`);
+      deleteButton.addEventListener("click", () => {
         this.deleteTask(task.id, true);
       });
     });
   }
+  //REFACTOR: remove silly refresh thing, or at least refresh by default
   deleteTask(id, refresh = false) {
-    //todo: make work
-    console.log("deleting " + id);
     //find taskIndex by id
     //remove by index
     this.tasks.splice(
