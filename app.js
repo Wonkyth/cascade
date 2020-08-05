@@ -33,10 +33,31 @@ class TaskManager {
     //for each task, add to element
     this.tasks.forEach((task) => {
       this.parent.append(task.toHtmlElement());
-      //wtf
+      //REFACTOR: move this to its own function
       const deleteButton = this.parent.querySelector(`#${task.id}_delete`);
       deleteButton.addEventListener("click", () => {
         this.deleteTask(task.id, true);
+      });
+      const editButton = this.parent.querySelector(`#${task.id}_edit`);
+      editButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        //TODO: update modal with data from task
+        $("#taskEditModal").modal();
+      });
+      const statusDropdown = this.parent.querySelector(
+        `#${task.id}_setStatusDropdown`
+      );
+      statusDropdown.addEventListener("click", (event) => {
+        event.stopPropagation();
+        //TODO: set status
+      });
+      const statusDropdownItems = statusDropdown.querySelectorAll(
+        ".dropdown-item"
+      );
+      statusDropdownItems.forEach((element) => {
+        element.addEventListener("click", (event) => {
+          console.log(event.target.innerText, event.target.value);
+        });
       });
     });
   }
@@ -67,11 +88,11 @@ class Task {
     //TODO: make datetime convert to correct format
     //TODO: Fix collapser
     const html = `
-      <li class="list-group-item mainList border-0 collapser" data-toggle="collapse"
-      data-target="#${this.id}_collapsable" id="${this.id}">
+      <li class="list-group-item mainList border-0 collapser" id="${this.id}">
         <div class="row">
           <div class="col d-flex flex-column taskHeader">
-            <div class="row d-flex p-2">
+            <div class="row d-flex p-2"  data-toggle="collapse"
+            data-target="#${this.id}_collapsable">
               <div
                 class="d-flex flex-grow-1 align-items-center collapser"
                 
@@ -94,10 +115,11 @@ class Task {
                   type="button"
                   class="btn btn-primary dropdown-toggle mr-3"
                   data-toggle="dropdown"
+                  id="${this.id}_setStatusButton"
                 >
                   Task Status
                 </button>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu" id="${this.id}_setStatusDropdown">
                   <a class="dropdown-item" href="#"
                     ><i class="fas fa-box"></i> To Do</a
                   >
