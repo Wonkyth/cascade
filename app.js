@@ -1,7 +1,6 @@
 const taskContainer = document.querySelector("#taskParent");
 const newSavedTask = document.querySelector("#newTaskSave");
-let taskCount = 0;
-let tasksDb = [];
+newSavedTask.addEventListener("click", saveButtonClicked);
 class TaskManager {
   constructor(parent) {
     this.tasks = [];
@@ -15,14 +14,17 @@ class TaskManager {
       datetime,
       assignee,
       status,
-      taskCount
+      this.taskCount
     );
-    //todo: add event listener
-    this.parent.append(task.toHtmlElement());
+
+    const fragment = task.toHtmlElement();
+
     this.tasks.push(task);
+    this.parent.append(fragment);
     this.taskCount++;
+
     if (refresh) {
-      display();
+      this.display();
     }
   }
   display() {
@@ -31,23 +33,38 @@ class TaskManager {
     //for each task, add to element
     this.tasks.forEach((task) => {
       this.parent.append(task.toHtmlElement());
-      console.count(task.name);
+      //wtf
+      const foo = this.parent.querySelector(`#${task.id}_delete`);
+      console.log(foo);
+      foo.addEventListener("click", () => {
+        console.log("deleting " + task.id);
+        this.deleteTask(task.id, true);
+      });
     });
   }
-  deleteTask(id_or_whatever) {
+  deleteTask(id, refresh = false) {
     //todo: make work
-    console.warn("not implemented");
+    console.log("deleting " + id);
+    //find taskIndex by id
+    //remove by index
+    this.tasks.splice(
+      this.tasks.findIndex((task) => task.id === id),
+      1
+    );
+    if (refresh) {
+      this.display();
+    }
   }
 }
 
 class Task {
-  constructor(name, description, datetime, assignee, status, count) {
+  constructor(name, description, datetime, assignee, status, taskCount) {
     this.name = name;
     this.description = description;
     this.datetime = datetime;
     this.assignee = assignee;
     this.status = status;
-    this.id = "task" + count;
+    this.id = "task" + taskCount;
   }
   toHtmlElement() {
     //TODO: make datetime convert to correct format
@@ -129,7 +146,9 @@ class Task {
       </li>
     `;
     //todo: add event listeners
-    return document.createRange().createContextualFragment(html);
+    const fragment = document.createRange().createContextualFragment(html);
+
+    return fragment;
   }
 }
 
@@ -173,35 +192,33 @@ class Options {
   SetTimeFormat() {}
 }
 
-newSavedTask.addEventListener("click", saveButtonClicked);
-
-// class Task {
-//   constructor(name, description, date, time, assignee, status) {
-//     this.name = name;
-//     this.description = description;
-//     this.date = date;
-//     this.time = time;
-//     this.assignee = assignee;
-//     this.status = status; //TODO: allow to include and change all information within Status
-//   }
-// }
-
 function saveButtonClicked() {
   const newTaskName = document.querySelector("#newTaskName").value;
   const newTaskDescription = document.querySelector("#newTaskDescription")
     .value; //Ok prettier
   const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
-  const newTaskDate = document.querySelector("#newTaskDate").valueAsNumber;
-  const newTaskTime = document.querySelector("#newTaskTime").valueAsNumber;
+  const date = new Date(document.querySelector("#newTaskDate").value);
+  console.log(date);
+  const time = new Date(document.querySelector("#newTaskTime").valueAsNumber);
+  console.log(time);
+  const dateTime = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    time.getHours(),
+    time.getMinutes(),
+    0,
+    0
+  );
   const newTaskStatus = document.querySelector("#newTaskStatus").value;
 
-  addTask(
+  mainTaskManager.addTask(
     newTaskName,
     newTaskDescription,
-    newTaskDate,
-    newTaskTime,
+    dateTime,
     newTaskAssignee,
-    newTaskStatus
+    newTaskStatus,
+    true
   );
 
   clearTaskEditModal();
@@ -237,7 +254,6 @@ function getDefaultDate() {
 // status: string
 function setTaskStatus(task, status) {
   //FIXME: depreciated
-  //TODO: //REFACTOR
   const taskProgress = task.querySelector(".progress-bar");
   switch (parseInt(status, 10)) {
     case 1:
@@ -279,56 +295,6 @@ function setTaskStatus(task, status) {
   }
 }
 
-function addTask(name, description, date, time, assignee, status) {
-  //FIXME: depreciated
-  const template = document.querySelector("#taskTemplate");
-  const newTask = template.content.firstElementChild.cloneNode(true);
-  taskCount++;
-
-  //set task id
-  newTask.id = `taskID${taskCount}`;
-
-  //set target of collapser
-  const collapser = newTask.querySelector(".collapser");
-  collapser.setAttribute("data-target", `#taskCollapsable${taskCount}`);
-
-  //set id for collapsable
-  const collapsable = newTask.querySelector("#templateCollapsable");
-  collapsable.id = `taskCollapsable${taskCount}`;
-
-  //set id for edit button
-  const editButton = newTask.querySelector("#templateEditButtonID");
-  editButton.classList.add(`taskEditButtonID${taskCount}`);
-
-  //set event listener for edit button
-  editButton.addEventListener("click", (event) => {
-    console.log(`${newTask.id} was clicked.`);
-  });
-
-  //set task name
-  const taskName = newTask.querySelector(".taskName");
-  taskName.innerHTML = name;
-
-  //set task description
-  const taskDescription = newTask.querySelector(".taskDescription");
-  taskDescription.innerHTML = description;
-
-  const taskDate = newTask.querySelector(".taskDate");
-  taskDate.innerHTML = date;
-  //TODO: set time (possibly same info as date?)
-  //TODO: set assignee to use actual data from list of collaborators
-  const taskAssignee = newTask.querySelector(".taskAssignee");
-  taskAssignee.innerHTML = "Assignee: " + assignee;
-
-  setTaskStatus(newTask, status);
-
-  const taskListParent = document.querySelector("#taskParent");
-  taskListParent.appendChild(newTask);
-
-  task = new Task(name, description, date, time, assignee, status);
-  tasksDb.push(task);
-}
-
 //add validator eventListeners
 document.querySelectorAll(".validated").forEach((element) => {
   element.addEventListener("change", (event) => {
@@ -360,7 +326,6 @@ function setIsInvalid(element) {
 
 //Sample Tasks for Preview
 function generateExampleTasks() {
-  //TODO: upgrade to use TaskManager
   assigneeManager.add("Bill");
   assigneeManager.add("Ted");
 
@@ -371,43 +336,19 @@ function generateExampleTasks() {
     assigneeManager.getFromName("Bill"),
     "To Do"
   );
+  mainTaskManager.addTask(
+    "test2",
+    "Example task 2",
+    new Date("December 12, 2022 03:24:00"),
+    assigneeManager.getFromName("Ted"),
+    "To Do"
+  );
 
   mainTaskManager.display();
-  // addTask(
-  //   "Go Shopping",
-  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-  //   "08/06/20",
-  //   "10:30",
-  //   "Ted",
-  //   "1"
-  // );
-  // addTask(
-  //   "Go Shopping",
-  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-  //   "08/06/20",
-  //   "10:30",
-  //   "Ted",
-  //   "2"
-  // );
-  // addTask(
-  //   "Go Shopping",
-  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-  //   "08/06/20",
-  //   "10:30",
-  //   "Ted",
-  //   "3"
-  // );
-  // addTask(
-  //   "Go Shopping",
-  //   "Eggs, Milk, Bread, Steaks, TP, Pasta, Chicken, Mixed veg, Fruit",
-  //   "08/06/20",
-  //   "10:30",
-  //   "Ted",
-  //   "4"
-  // );
 }
 
 const mainTaskManager = new TaskManager("#taskParent");
 const assigneeManager = new AssigneeManager();
+const options = new Options();
 
 generateExampleTasks();
