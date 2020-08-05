@@ -34,6 +34,28 @@
     <div class="mobileLogo d-block d-sm-none">
       <img src="./img/logo.png" class="img-fluid" />
     </div>
+    <!-- Navbar toggler -->
+    
+      <div class="navtoggle d-sm-none" data-target="#navbarCollapsable" data-toggle="collapse">
+        <img src="./menu.png" class="img-fluid">
+      </div>
+    
+    <!-- Navbar for mobile -->
+    <nav>
+      <div class="navbar collapse d-sm-none" id="navbarCollapsable">
+      <ul class="">
+        <li class=""><div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Settings
+          </button>
+          <div class="dropdown-menu navbarOptions" aria-labelledby="dropdownMenuButton">
+            
+          </div>
+        </div></li>
+        <li class="navbarNew">New Task</li>
+      </ul>
+     </div>
+    </nav>
     <div class="container-fluid">
       <!--This is the container-->
       <div class="row">
@@ -46,13 +68,13 @@
             <div class="col-3">
               <div class="card">
                 <div
-                  class="card-header options"
+                  class="card-header options "
                   data-toggle="collapse"
                   data-target="#optionsCollapsable"
                 >
                   Settings
                 </div>
-                <div class="card-body collapse" id="optionsCollapsable">
+                <div class="card-body collapse optButton" id="optionsCollapsable">
                   <div class="input-group my-3">
                     <select class="custom-select" id="time-format-setting">
                       <option selected>12-hour time</option>
@@ -65,7 +87,7 @@
                 <div class="card-body align-self-end">
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    class="btn btn-primary newButton"
                     data-toggle="modal"
                     data-target="#taskEditModal"
                   >
