@@ -65,7 +65,7 @@ class Task {
                 <p class="px-2 taskDate">${this.datetime}</p>
               </div>
 
-              <div class="dropdown">
+              <div class="dropdown d-flex align-items-center">
                 <button
                   type="button"
                   class="btn btn-info mx-1"
@@ -96,7 +96,12 @@ class Task {
                   <a class="dropdown-item" href="#"
                     ><i class="fas fa-check-double"></i> Complete</a
                   >
-                </div>
+                  </div>
+                  <button
+                  class="btn btn-outline-danger "
+                  id="${this.id}_delete" >
+                  <i class="fas fa-trash-alt"></i>
+                  </button>
               </div>
             </div>
             <div class="progress">
