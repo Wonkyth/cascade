@@ -358,5 +358,17 @@ let screenResize = function () {
   }
 };
 
-console.log(sideMenu.outerHTML);
-screenResize();
+//console.log(sideMenu.outerHTML);
+//screenResize();
+
+let consolidateUI = function () {
+  let newButton = document.querySelector(".newButton");
+  let optButton = document.querySelector(".optButton");
+  let navbarOptions = document.querySelector(".navbarOptions");
+  let navbarNew = document.querySelector(".navbarNew");
+  console.log(navbarNew);
+  console.log(navbarOptions);
+  navbarNew.innerHTML = newButton.outerHTML;
+  navbarOptions.innerHTML = optButton.innerHTML;
+};
+consolidateUI();
