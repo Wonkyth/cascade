@@ -213,6 +213,7 @@ class Options {
 }
 
 function saveButtonClicked() {
+  //TODO: prevent from making new task if form invalid
   const newTaskName = document.querySelector("#newTaskName").value;
   const newTaskDescription = document.querySelector("#newTaskDescription")
     .value; //Ok prettier
@@ -315,34 +316,34 @@ function setTaskStatus(task, status) {
   }
 }
 
-//add validator eventListeners
-document.querySelectorAll(".validated").forEach((element) => {
-  element.addEventListener("change", (event) => {
-    validateElement(event.target);
-  });
-});
+// //add validator eventListeners
+// document.querySelectorAll(".validated").forEach((element) => {
+//   element.addEventListener("change", (event) => {
+//     validateElement(event.target);
+//   });
+// });
 
-function validateElement(element) {
-  let value = element.value;
-  let validator = element.getAttribute("data-validator");
-  if (eval(validator)) {
-    setIsValid(element);
-    return true;
-  } else {
-    setIsInvalid(element);
-    return false;
-  }
-}
+// function validateElement(element) {
+//   let value = element.value;
+//   let validator = element.getAttribute("data-validator");
+//   if (eval(validator)) {
+//     setIsValid(element);
+//     return true;
+//   } else {
+//     setIsInvalid(element);
+//     return false;
+//   }
+// }
 
-function setIsValid(element) {
-  element.classList.add("is-valid");
-  element.classList.remove("is-invalid");
-}
+// function setIsValid(element) {
+//   element.classList.add("is-valid");
+//   element.classList.remove("is-invalid");
+// }
 
-function setIsInvalid(element) {
-  element.classList.add("is-invalid");
-  element.classList.remove("is-valid");
-}
+// function setIsInvalid(element) {
+//   element.classList.add("is-invalid");
+//   element.classList.remove("is-valid");
+// }
 
 //Sample Tasks for Preview
 function generateExampleTasks() {
@@ -370,6 +371,18 @@ function generateExampleTasks() {
 const mainTaskManager = new TaskManager("#taskParent");
 const assigneeManager = new AssigneeManager();
 const options = new Options();
+const validation = Array.prototype.filter.call(
+  document.querySelectorAll(".needs-validation"),
+  (form) => {
+    form.addEventListener("submit", (event) => {
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add("was-validated");
+    });
+  }
+);
 
 generateExampleTasks();
 let sideMenu = document.querySelector(".sideBar");
