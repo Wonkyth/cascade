@@ -1,6 +1,37 @@
-const taskContainer = document.querySelector("#taskParent");
-const newSavedTask = document.querySelector("#newTaskSave");
-newSavedTask.addEventListener("click", saveButtonClicked);
+// set up new task modal eventListener
+document.querySelector("#newTaskSave").addEventListener("click", (event) => {
+  //TODO: prevent from making new task if form invalid
+  const newTaskName = document.querySelector("#newTaskName").value;
+  const newTaskDescription = document.querySelector("#newTaskDescription")
+    .value; //Ok prettier
+  const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
+  const date = new Date(document.querySelector("#newTaskDate").value);
+  console.log(date);
+  const time = new Date(document.querySelector("#newTaskTime").valueAsNumber);
+  console.log(time);
+  const dateTime = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    time.getHours(),
+    time.getMinutes(),
+    0,
+    0
+  );
+  const newTaskStatus = document.querySelector("#newTaskStatus").value;
+
+  mainTaskManager.addTask(
+    newTaskName,
+    newTaskDescription,
+    dateTime,
+    newTaskAssignee,
+    newTaskStatus,
+    true
+  );
+
+  clearTaskEditModal();
+});
+
 class TaskManager {
   constructor(parent) {
     this.tasks = [];
@@ -173,6 +204,8 @@ class Task {
 }
 
 class AssigneeManager {
+  //TODO: add functionality to add new assignees
+  //TODO: make default assignee oneself
   constructor() {
     this.assignees = [];
   }
@@ -212,40 +245,15 @@ class Options {
   SetTimeFormat() {}
 }
 
-function saveButtonClicked() {
-  //TODO: prevent from making new task if form invalid
-  const newTaskName = document.querySelector("#newTaskName").value;
-  const newTaskDescription = document.querySelector("#newTaskDescription")
-    .value; //Ok prettier
-  const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
-  const date = new Date(document.querySelector("#newTaskDate").value);
-  console.log(date);
-  const time = new Date(document.querySelector("#newTaskTime").valueAsNumber);
-  console.log(time);
-  const dateTime = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    time.getHours(),
-    time.getMinutes(),
-    0,
-    0
-  );
-  const newTaskStatus = document.querySelector("#newTaskStatus").value;
-
-  mainTaskManager.addTask(
-    newTaskName,
-    newTaskDescription,
-    dateTime,
-    newTaskAssignee,
-    newTaskStatus,
-    true
-  );
-
-  clearTaskEditModal();
-}
-
 function clearTaskEditModal() {
+  //TODO: make this actually clear everything
+
+  //nested function to minimize global functions
+  function getDefaultDate() {
+    console.warn("getDefaultDate isn't implemented yet!");
+    return "2011-08-19";
+  }
+
   //select all input
   const elements = document.querySelectorAll("#taskEditModal .clearable");
   //clear
@@ -266,87 +274,39 @@ function clearTaskEditModal() {
   //clear
 }
 
-function getDefaultDate() {
-  console.warn("getDefaultDate isn't implemented yet!");
-  return "2011-08-19";
-}
+const assigneeManager = new AssigneeManager();
+const options = new Options();
 
-// task: element
-// status: string
-function setTaskStatus(task, status) {
-  //FIXME: depreciated
-  const taskProgress = task.querySelector(".progress-bar");
-  switch (parseInt(status, 10)) {
-    case 1:
-      taskProgress.innerHTML = "To Do";
-      taskProgress.setAttribute("aria-valuenow", "25");
-      taskProgress.setAttribute("class", "progress-bar bg-secondary");
-      taskProgress.setAttribute("style", "width: 25%");
-      break;
-    case 2:
-      taskProgress.innerHTML = "In Progress";
-      taskProgress.setAttribute("aria-valuenow", "50");
-      taskProgress.setAttribute("class", "progress-bar bg-primary");
-      taskProgress.setAttribute("style", "width: 50%");
-
-      break;
-    case 3:
-      taskProgress.innerHTML = "Awaiting Review";
-      taskProgress.setAttribute("aria-valuenow", "75");
-      taskProgress.setAttribute("class", "progress-bar bg-info");
-      taskProgress.setAttribute("style", "width: 75%");
-
-      break;
-    case 4:
-      taskProgress.innerHTML = "Done!";
-      taskProgress.setAttribute("aria-valuenow", "100");
-      taskProgress.setAttribute("class", "progress-bar bg-success");
-      taskProgress.setAttribute("style", "width: 100%");
-      break;
-
-    default:
-      console.error(
-        `Status "${status}" does not exist! Setting status text to "ERROR".`
-      );
-      taskProgress.innerHTML = "ERROR";
-      taskProgress.setAttribute("aria-valuenow", "0");
-      taskProgress.setAttribute("class", "progress-bar bg-danger");
-      taskProgress.setAttribute("style", "width: 100%");
-      break;
+//Add eventListeners to validate modal forms
+Array.prototype.filter.call(
+  document.querySelectorAll(".needs-validation"),
+  (form) => {
+    form.addEventListener("submit", (event) => {
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add("was-validated");
+    });
   }
+);
+
+//console.log(sideMenu.outerHTML);
+//screenResize();
+
+function consolidateUI() {
+  let newButton = document.querySelector(".newButton");
+  let optButton = document.querySelector(".optButton");
+  let navbarOptions = document.querySelector(".navbarOptions");
+  let navbarNew = document.querySelector(".navbarNew");
+  navbarNew.innerHTML = newButton.outerHTML;
+  navbarOptions.innerHTML = optButton.innerHTML;
 }
+consolidateUI();
 
-// //add validator eventListeners
-// document.querySelectorAll(".validated").forEach((element) => {
-//   element.addEventListener("change", (event) => {
-//     validateElement(event.target);
-//   });
-// });
-
-// function validateElement(element) {
-//   let value = element.value;
-//   let validator = element.getAttribute("data-validator");
-//   if (eval(validator)) {
-//     setIsValid(element);
-//     return true;
-//   } else {
-//     setIsInvalid(element);
-//     return false;
-//   }
-// }
-
-// function setIsValid(element) {
-//   element.classList.add("is-valid");
-//   element.classList.remove("is-invalid");
-// }
-
-// function setIsInvalid(element) {
-//   element.classList.add("is-invalid");
-//   element.classList.remove("is-valid");
-// }
-
+const mainTaskManager = new TaskManager("#taskParent");
 //Sample Tasks for Preview
-function generateExampleTasks() {
+(function () {
   assigneeManager.add("Bill");
   assigneeManager.add("Ted");
 
@@ -366,44 +326,4 @@ function generateExampleTasks() {
   );
 
   mainTaskManager.display();
-}
-
-const mainTaskManager = new TaskManager("#taskParent");
-const assigneeManager = new AssigneeManager();
-const options = new Options();
-const validation = Array.prototype.filter.call(
-  document.querySelectorAll(".needs-validation"),
-  (form) => {
-    form.addEventListener("submit", (event) => {
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      form.classList.add("was-validated");
-    });
-  }
-);
-
-generateExampleTasks();
-let sideMenu = document.querySelector(".sideBar");
-
-let screenResize = function () {
-  if (window.screenX >= -611) {
-    console.log(window.screenX);
-  }
-};
-
-//console.log(sideMenu.outerHTML);
-//screenResize();
-
-let consolidateUI = function () {
-  let newButton = document.querySelector(".newButton");
-  let optButton = document.querySelector(".optButton");
-  let navbarOptions = document.querySelector(".navbarOptions");
-  let navbarNew = document.querySelector(".navbarNew");
-  console.log(navbarNew);
-  console.log(navbarOptions);
-  navbarNew.innerHTML = newButton.outerHTML;
-  navbarOptions.innerHTML = optButton.innerHTML;
-};
-consolidateUI();
+})();
