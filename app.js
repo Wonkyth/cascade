@@ -8,7 +8,6 @@ class TaskManager {
   }
 
   createNewTask() {
-    //TODO: pull data for new task
     const newTaskName = document.querySelector("#newTaskName").value;
     const newTaskDescription = document.querySelector("#newTaskDescription")
       .value; //Ok prettier
@@ -116,7 +115,6 @@ class Task {
   }
   toHtmlElement() {
     //TODO: make datetime convert to correct format
-    //TODO: Fix collapser
     const html = `
       <li class="list-group-item mainList border-0 collapser" id="${this.id}">
         <div class="row">
@@ -195,8 +193,8 @@ class Task {
         </div>
       </li>
     `;
-    //todo: add event listeners
     const fragment = document.createRange().createContextualFragment(html);
+    //FIXME: assignee name is undefined
 
     return fragment;
   }
@@ -245,15 +243,12 @@ class Options {
 }
 
 function clearTaskEditModal() {
-  //TODO: make this actually clear everything
+  // //nested function to minimize global functions
+  // function getDefaultDate() {
+  //   console.warn("getDefaultDate isn't implemented yet!");
+  //   return "2011-08-19";
+  // }
 
-  //nested function to minimize global functions
-  function getDefaultDate() {
-    console.warn("getDefaultDate isn't implemented yet!");
-    return "2011-08-19";
-  }
-
-  //TODO: clear fields
   document.querySelector("#taskModalForm").reset();
 }
 
@@ -268,7 +263,6 @@ function consolidateUI() {
   navbarNew.innerHTML = newButton.outerHTML;
   navbarOptions.innerHTML = optButton.innerHTML;
 }
-consolidateUI();
 
 const mainTaskManager = new TaskManager("#taskParent");
 //Sample Tasks for Preview
@@ -298,6 +292,7 @@ const mainTaskManager = new TaskManager("#taskParent");
 //Add eventListeners to validate modal forms
 (function () {
   window.addEventListener("load", () => {
+    consolidateUI();
     //select forms to apply custom validation to
     let forms = document.querySelectorAll(".needs-validation");
     //loop over and prevent submission
