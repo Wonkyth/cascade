@@ -110,7 +110,7 @@
     <div class="modal fade" id="taskEditModal" role="dialog">
       <div class="modal-dialog modal-dialog-slideout modal-md" role="document">
         <div class="modal-content">
-          <form class="needs-validation" novalidate>
+          <form class="needs-validation" id="taskModalForm" novalidate>
             <div class="modal-header">Create New Task</div>
             <div class="modal-body">
               <div class="input-group my-3">
@@ -130,21 +130,21 @@
                 <input
                   type="date"
                   id="newTaskDate"
-                  class="form-control"
+                  class="form-control clearable"
                   required
                 />
                 <input
                   type="time"
                   name=""
                   id="newTaskTime"
-                  class="form-control"
+                  class="form-control clearable"
                   required
                 />
               </div>
   
               <div class="input-group my-3">
                 <select
-                  class="custom-select validated"
+                  class="custom-select clearable"
                   id="newTaskStatus"
                   data-validator="value > 0"
                   required
@@ -157,7 +157,7 @@
                 </select>
   
                 <select
-                  class="custom-select"
+                  class="custom-select clearable"
                   id="newTaskAssignee"
                   required
                 >
@@ -168,7 +168,7 @@
               </div>
               <div class="form-group">
                 <textarea
-                  class="form-control"
+                  class="form-control clearable"
                   name=""
                   id="newTaskDescription"
                   cols="30"

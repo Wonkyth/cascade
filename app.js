@@ -1,36 +1,4 @@
-// set up new task modal eventListener
-document.querySelector("#newTaskSave").addEventListener("click", (event) => {
-  //TODO: prevent from making new task if form invalid
-  const newTaskName = document.querySelector("#newTaskName").value;
-  const newTaskDescription = document.querySelector("#newTaskDescription")
-    .value; //Ok prettier
-  const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
-  const date = new Date(document.querySelector("#newTaskDate").value);
-  console.log(date);
-  const time = new Date(document.querySelector("#newTaskTime").valueAsNumber);
-  console.log(time);
-  const dateTime = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    time.getHours(),
-    time.getMinutes(),
-    0,
-    0
-  );
-  const newTaskStatus = document.querySelector("#newTaskStatus").value;
-
-  mainTaskManager.addTask(
-    newTaskName,
-    newTaskDescription,
-    dateTime,
-    newTaskAssignee,
-    newTaskStatus,
-    true
-  );
-
-  clearTaskEditModal();
-});
+"use strict";
 
 class TaskManager {
   constructor(parent) {
@@ -38,6 +6,37 @@ class TaskManager {
     this.taskCount = 0;
     this.parent = document.querySelector(parent);
   }
+
+  createNewTask() {
+    //TODO: pull data for new task
+    const newTaskName = document.querySelector("#newTaskName").value;
+    const newTaskDescription = document.querySelector("#newTaskDescription")
+      .value; //Ok prettier
+    const newTaskAssignee = document.querySelector("#newTaskAssignee").value;
+    const date = new Date(document.querySelector("#newTaskDate").value);
+    const time = new Date(document.querySelector("#newTaskTime").valueAsNumber);
+    const dateTime = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      time.getHours(),
+      time.getMinutes(),
+      0,
+      0
+    );
+
+    this.addTask(
+      newTaskName,
+      newTaskDescription,
+      dateTime,
+      newTaskAssignee,
+      newTaskStatus,
+      true
+    );
+
+    clearTaskEditModal();
+  }
+
   addTask(name, description, datetime, assignee, status, refresh = false) {
     let task = new Task(
       name,
@@ -254,45 +253,12 @@ function clearTaskEditModal() {
     return "2011-08-19";
   }
 
-  //select all input
-  const elements = document.querySelectorAll("#taskEditModal .clearable");
-  //clear
-  elements.forEach((element) => {
-    //if text input
-    if (element.nodeName === "INPUT") {
-      if (element.getAttribute("type") === "text") {
-        element.value = "";
-      } else if (element.getAttribute("type") === "date") {
-        element.value = getDefaultDate();
-      }
-    }
-    //if date input
-    //if time input
-    //if textarea
-  });
-  //select all options
-  //clear
+  //TODO: clear fields
+  document.querySelector("#taskModalForm").reset();
 }
 
 const assigneeManager = new AssigneeManager();
 const options = new Options();
-
-//Add eventListeners to validate modal forms
-Array.prototype.filter.call(
-  document.querySelectorAll(".needs-validation"),
-  (form) => {
-    form.addEventListener("submit", (event) => {
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      form.classList.add("was-validated");
-    });
-  }
-);
-
-//console.log(sideMenu.outerHTML);
-//screenResize();
 
 function consolidateUI() {
   let newButton = document.querySelector(".newButton");
@@ -326,4 +292,41 @@ const mainTaskManager = new TaskManager("#taskParent");
   );
 
   mainTaskManager.display();
+})();
+
+//REFACTOR: move stuff into here to do on load
+//Add eventListeners to validate modal forms
+(function () {
+  window.addEventListener("load", () => {
+    //select forms to apply custom validation to
+    let forms = document.querySelectorAll(".needs-validation");
+    //loop over and prevent submission
+    let validation = Array.prototype.filter.call(forms, (form) => {
+      form.addEventListener(
+        "submit",
+        (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          const valid = form.checkValidity();
+          if (valid && form.id === "taskModalForm") {
+            mainTaskManager.createNewTask();
+            $("#taskEditModal").modal("hide");
+          }
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+
+    //add eventListeners to invalidate inputs on focusout
+    //jQuery ahoy
+    $(".needs-validation")
+      .find("input,select,textarea")
+      .on("focusout", function () {
+        // check element validity and change class
+        $(this)
+          .removeClass("is-valid is-invalid")
+          .addClass(this.checkValidity() ? "is-valid" : "is-invalid");
+      });
+  });
 })();
