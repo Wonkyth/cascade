@@ -23,6 +23,7 @@ class TaskManager {
       0,
       0
     );
+    const newTaskStatus = "To Do"; //FIXME: this some bullshit placeholder hack
 
     this.addTask(
       newTaskName,
@@ -55,7 +56,9 @@ class TaskManager {
     if (refresh) {
       this.display();
     }
+    this.writeStorage();
   }
+
   display() {
     //clear
     this.parent.innerHTML = "";
@@ -101,6 +104,33 @@ class TaskManager {
     if (refresh) {
       this.display();
     }
+    this.writeStorage();
+  }
+
+  writeStorage() {
+    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    localStorage.setItem("taskCount", this.taskCount);
+    console.log("wat", localStorage.getItem("tasks"));
+    // console.log("testy testy");
+    // console.log("write ", this.tasks);
+  }
+
+  readStorage() {
+    const items = JSON.parse(localStorage.getItem("tasks")) || [];
+    // console.log("Items: ", items);
+    this.tasks = items.map((item) => {
+      return new Task(
+        item.name,
+        item.description,
+        item.datetime,
+        item.assignee,
+        item.status,
+        item.id
+      );
+    });
+    this.taskCount = localStorage.getItem("taskCount") || 1;
+    console.log("read ", this.tasks);
+    this.display();
   }
 }
 
@@ -242,6 +272,10 @@ class Options {
   SetTimeFormat() {}
 }
 
+const mainTaskManager = new TaskManager("#taskParent");
+const assigneeManager = new AssigneeManager();
+const options = new Options();
+
 function clearTaskEditModal() {
   // //nested function to minimize global functions
   // function getDefaultDate() {
@@ -252,9 +286,6 @@ function clearTaskEditModal() {
   document.querySelector("#taskModalForm").reset();
 }
 
-const assigneeManager = new AssigneeManager();
-const options = new Options();
-
 function consolidateUI() {
   let newButton = document.querySelector(".newButton");
   let optButton = document.querySelector(".optButton");
@@ -264,29 +295,30 @@ function consolidateUI() {
   navbarOptions.innerHTML = optButton.innerHTML;
 }
 
-const mainTaskManager = new TaskManager("#taskParent");
-//Sample Tasks for Preview
-(function () {
-  assigneeManager.add("Bill");
-  assigneeManager.add("Ted");
+//TODO: make new sample task generator which doesn't suck
 
-  mainTaskManager.addTask(
-    "test1",
-    "Example task 1",
-    new Date("December 17, 2020 03:24:00"),
-    assigneeManager.getFromName("Bill"),
-    "To Do"
-  );
-  mainTaskManager.addTask(
-    "test2",
-    "Example task 2",
-    new Date("December 12, 2022 03:24:00"),
-    assigneeManager.getFromName("Ted"),
-    "To Do"
-  );
+// //Sample Tasks for Preview
+// (function () {
+//   assigneeManager.add("Bill");
+//   assigneeManager.add("Ted");
 
-  mainTaskManager.display();
-})();
+//   mainTaskManager.addTask(
+//     "test1",
+//     "Example task 1",
+//     new Date("December 17, 2020 03:24:00"),
+//     assigneeManager.getFromName("Bill"),
+//     "To Do"
+//   );
+//   mainTaskManager.addTask(
+//     "test2",
+//     "Example task 2",
+//     new Date("December 12, 2022 03:24:00"),
+//     assigneeManager.getFromName("Ted"),
+//     "To Do"
+//   );
+
+//   mainTaskManager.display();
+// })();
 
 //REFACTOR: move stuff into here to do on load
 //Add eventListeners to validate modal forms
@@ -325,3 +357,8 @@ const mainTaskManager = new TaskManager("#taskParent");
       });
   });
 })();
+
+window.addEventListener("load", (event) => {
+  mainTaskManager.readStorage();
+  // console.log("onload");
+});
