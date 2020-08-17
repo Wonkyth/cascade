@@ -16,7 +16,5 @@
     "url": "https://github.com/Wonkyth/cascade/issues"
   },
   "homepage": "https://github.com/Wonkyth/cascade#readme",
-  "devDependencies": {
-    "jasmine": "^3.6.1"
-  }
+  "devDependencies": {}
 }
