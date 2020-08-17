@@ -1,3 +1,12 @@
 {
-  "name": "cascade"
+  "name": "cascade",
+  "scripts": {
+    "test": "parcel index.html",
+    "watch": "parcel watch index.html"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "babel-types": "^6.26.0"
+  },
+  "dependencies": {}
 }
