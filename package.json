@@ -1,7 +1,7 @@
 {
   "name": "cascade",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watch",
     "build": "parcel build index.html",
     "run": "parcel index.html"
   },
