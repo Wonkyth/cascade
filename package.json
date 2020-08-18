@@ -1,11 +1,16 @@
 {
   "name": "cascade",
   "scripts": {
-    "test": "parcel index.html",
-    "watch": "parcel watch index.html"
+    "test": "jest",
+    "build": "parcel build index.html",
+    "run": "parcel index.html"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
     "babel-types": "^6.26.0",
+    "jest": "^26.4.0",
     "parcel-bundler": "^1.12.4"
   }
 }
