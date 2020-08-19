@@ -1,8 +1,10 @@
 import Task from "./Task.js";
+import path from "path";
+import fs from "fs";
+const html = fs.readFileSync(path.resolve(__dirname, "./index.html"), "utf8");
 
-describe("Task", () => {
-  test("testing", () => {
-    // expect(true).toBe(false);
-    // TODO: test toHtmlElement
-  });
+beforeEach(() => {
+  document.documentElement.innerHTML = html.toString();
 });
+
+test.todo("something");

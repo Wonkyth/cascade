@@ -1,6 +1,6 @@
 import { Task } from "./Task";
 
-export class TaskManager {
+export default class TaskManager {
   constructor(parent) {
     this.tasks = [];
     this.taskCount = 0;
@@ -61,6 +61,7 @@ export class TaskManager {
       this.display();
     }
     this.writeStorage();
+    return task.id;
   }
 
   display() {
@@ -132,5 +133,21 @@ export class TaskManager {
     this.taskCount = localStorage.getItem("taskCount") || 1;
     console.log("read ", this.tasks);
     this.display();
+  }
+
+  assignTask(taskId, assigneeId) {
+    let task = this.getTask(taskId);
+    task.assignee = assigneeId;
+    return task;
+  }
+
+  getTask(taskId) {
+    return this.tasks[this.tasks.findIndex((task) => task.id === taskId)];
+  }
+
+  updateTask(taskId, task) {
+    let updated = this.getTask(taskId);
+    updated = task;
+    return updated;
   }
 }
